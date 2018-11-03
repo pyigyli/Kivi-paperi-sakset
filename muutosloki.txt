@@ -1,0 +1,12 @@
+Päivämäärä      Muutokset
+___________________________
+
+2.11.2018       - Aiheen valinta suoritettu.
+                - Lokaalisti toimivan hello.py sovelluksen luominen.
+
+___________________________
+
+3.11.2018       - Sovellus siirretty Githubiin.
+                - Sovellus siirretty Herokuun.
+
+___________________________
