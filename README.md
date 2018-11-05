@@ -1,5 +1,5 @@
 # Kivi-paperi-sakset
-###Linkki sovellukseen:
+### Linkki sovellukseen:
 https://kivi-paperi-sakset.herokuapp.com/
 
 ### Sovelluksen kuvaus
