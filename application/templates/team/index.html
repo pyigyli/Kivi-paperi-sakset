@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<p><a href="{{ url_for('team_new') }}">Create a new team</a></p>
+  <ul>
+    {% for arvo in lista %}
+    <li>{{ arvo }}</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

@@ -2,13 +2,50 @@
   <html>
     <head>
       <meta charset="utf-8">
-      <title>Demo</title>
+      <title>Rock Paper Scissors</title>
+
+      <!-- Gunicorn doesn't allow linking .css files, thus styles are embedded inside this html-file -->
+      <style>
+        body {
+          font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+          font-weight: 600;
+          color: #ffc119;
+          background-color: #363636;
+          font-size: 20px;
+        }
+        a {
+            color: #daa000;
+        }
+        .navigation_topbar {
+          list-style-type: none;
+          overflow: hidden;
+          background-color: #ffc119;
+        }
+        .navigation_list {
+          float: left;
+          font-size: 24px;
+          padding: 20px;
+        }
+        .navigation_link {
+          color: #363636;
+        }
+      </style>
+
     </head>
 
+
     <body>
+      <ul class="navigation_topbar">
+        <li class="navigation_list"><a class="navigation_link" href="{{ url_for('index') }}">Home</a></li>
+        <li class="navigation_list"><a class="navigation_link" href="{{ url_for('user_index') }}">Profile</a></li>
+        <li class="navigation_list"><a class="navigation_link" href="{{ url_for('game_index') }}">Play</a></li>
+        <li class="navigation_list"><a class="navigation_link" href="{{ url_for('team_index') }}">Teams</a></li>
+        <li class="navigation_list"><a class="navigation_link" href="{{ url_for('scoreboard_index') }}">Scoreboards</a></li>
+      </ul>
+
       {% block body %}
       <p>
-        Content.
+	Content.
       </p>
       {% endblock %}
     </body>
