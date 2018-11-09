@@ -23,7 +23,4 @@ login_manager.login_message = "Please login to use this functionality."
 def load_user(user_id):
     return User.query.get(user_id)
 
-try:
-    db.create_all()
-except:
-    pass
+db.create_all()
