@@ -1,52 +1,69 @@
 <!DOCTYPE html>
-  <html>
-    <head>
-      <meta charset="utf-8">
-      <title>Rock Paper Scissors</title>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Rock Paper Scissors</title>
 
-      <!-- Gunicorn doesn't allow linking .css files, thus styles are embedded inside this html-file -->
-      <style>
-        body {
-          font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-          font-weight: 600;
-          color: #ffc119;
-          background-color: #363636;
-          font-size: 20px;
-        }
-        a {
-            color: #daa000;
-        }
-        .navigation_topbar {
-          list-style-type: none;
-          overflow: hidden;
-          background-color: #ffc119;
-        }
-        .navigation_list {
-          float: left;
-          font-size: 24px;
-          padding: 20px;
-        }
-        .navigation_link {
-          color: #363636;
-        }
-      </style>
+    <!-- Gunicorn doesn't seem to allow linking .css files, thus styles are embedded inside this html-file -->
+    <style>
+      body {
+        font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-weight: 600;
+        color: #ffc119;
+        background-color: #363636;
+        font-size: 20px;
+      }
+      a {
+          color: #daa000;
+      }
+      .navigation_topbar {
+        list-style-type: none;
+        overflow: hidden;
+        background-color: #ffc119;
+      }
+      .navigation_login {
+        font-size: 24px;
+        padding: 10px;
+        padding-right: 30px;
+      }
+      .navigation_login_text {
+        font-size: 24px;
+        color: #262626;
+        padding: 10px;
+      }
+      .navigation_list {
+        float: left;
+        font-size: 24px;
+        padding: 10px;
+        padding-right: 30px;
+      }
+      .navigation_link {
+        color: #262626;
+      }
+    </style>
+  </head>
 
-    </head>
 
+  <body>
+    <ul class="navigation_topbar">
+      {% if current_user.is_authenticated %}
+      <li class="navigation_login"><a class="navigation_link" href="{{ url_for('auth_logout') }}">Logout</a>
+        <span class="navigation_login_text">Logged in as {{ current_user.username }}</span>
+      </li>
+      {% else %}
+      <li class="navigation_login"><a class="navigation_link" href="{{ url_for('auth_login') }}">Login</a>
+        <span class="navigation_login_text"><a class="navigation_link" href="{{ url_for('auth_form') }}">Create account</a></span>
+      </li>
+      {% endif %}
+      <li class="navigation_list"><a class="navigation_link" href="{{ url_for('index') }}">Home</a></li>
+      <li class="navigation_list"><a class="navigation_link" href="{{ url_for('user_index') }}">Profile</a></li>
+      <li class="navigation_list"><a class="navigation_link" href="{{ url_for('game_index') }}">Play</a></li>
+      <li class="navigation_list"><a class="navigation_link" href="{{ url_for('team_index') }}">Teams</a></li>
+      <li class="navigation_list"><a class="navigation_link" href="{{ url_for('scoreboard_index') }}">Scoreboards</a></li>
+    </ul>
 
-    <body>
-      <ul class="navigation_topbar">
-        <li class="navigation_list"><a class="navigation_link" href="{{ url_for('index') }}">Home</a></li>
-        <li class="navigation_list"><a class="navigation_link" href="{{ url_for('user_index') }}">Profile</a></li>
-        <li class="navigation_list"><a class="navigation_link" href="{{ url_for('game_index') }}">Play</a></li>
-        <li class="navigation_list"><a class="navigation_link" href="{{ url_for('team_index') }}">Teams</a></li>
-        <li class="navigation_list"><a class="navigation_link" href="{{ url_for('scoreboard_index') }}">Scoreboards</a></li>
-      </ul>
-
-      {% block body %}
-      <p>
-	Content.
-      </p>
-      {% endblock %}
-    </body>
-  </html>
+    {% block body %}
+    <p>Content.</p>
+    {% endblock %}
+  </body>
+</html>
