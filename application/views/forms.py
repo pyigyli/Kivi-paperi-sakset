@@ -12,3 +12,8 @@ class LoginForm(FlaskForm):
     password = PasswordField("Password", [validators.Length(min=5), validators.Length(max=144)])
     class Meta:
         csrf = False
+
+class CreateTeamForm(FlaskForm):
+    name = StringField("name", [validators.Length(min=3), validators.Length(max=144)])
+    class Meta:
+        csrf = False
