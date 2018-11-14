@@ -12,7 +12,7 @@ Kivi-paperi-sakset on tietokantasovellus, jossa käyttäjät voivat haastaa tiet
 - Kirjautuneena käyttäjänä voin liittyä joukkueeseen ja poistua siitä halutessani.
 - Joukkueeseen liittyneenä tai joukkueeni luotuani voin osallistua kyseisen joukkueen ryhmäkeskusteluun.
 - Voin kirjautumatta selata pelitilastoja voittoisimmista käyttäjistä ja joukkueista.
-- Kirjautuneena käyttäjänä voin nähdä omat pelitilastoni.
+- Kirjautuneena käyttäjänä voin nähdä omat pelitilastoni ja vaihtaa salasanani.
 
 ### Tietokantakaavio sovelluksesta
 [Tietokantakaavio](https://github.com/pyigyli/kivi-paperi-sakset/blob/master/documentation/tietokantakaavio.md)
