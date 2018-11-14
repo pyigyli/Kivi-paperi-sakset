@@ -7,7 +7,7 @@ from application.views.forms import CreateTeamForm
 
 @app.route("/team/index/")
 def team_index():
-    return render_template("team/index.html", user = current_user, teams = Team.list_by_score())
+    return render_template("team/index.html", teams = Team.list_by_score())
 
 @app.route("/team/new/")
 @login_required
