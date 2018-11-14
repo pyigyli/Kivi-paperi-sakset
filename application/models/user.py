@@ -21,7 +21,8 @@ class User(db.Model):
         stmt = text("SELECT account.username, COUNT(result.result_id) "
                     "FROM account "
                     "LEFT JOIN result ON account.account_id = result.account_id "
-                    "LEFT JOIN team ON account.team_id = :teamid "
+                    "LEFT JOIN team ON account.team_id = team.team_id "
+                    "WHERE account.team_id = :teamid "
                     "GROUP BY account.account_id "
                     "ORDER BY COUNT(result.result_id);").params(teamid=team_id)
         res = db.engine.execute(stmt)
