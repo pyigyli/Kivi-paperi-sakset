@@ -1,6 +1,9 @@
 from flask import Flask
 app = Flask(__name__)
 
+import os
+from flask_sqlalchemy import SQLAlchemy
+
 if os.environ.get("HEROKU"):
     app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
 else:
