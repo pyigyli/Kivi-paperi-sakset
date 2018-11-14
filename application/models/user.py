@@ -17,26 +17,13 @@ class User(db.Model):
         self.password = password
 
     @staticmethod
-    def list_by_score():
-        stmt = text("SELECT account.username, COUNT(result.result_id) "
-                    "FROM account "
-                    "LEFT JOIN result ON account.account_id = result.account_id "
-                    "GROUP BY account.account_id "
-                    "ORDER BY COUNT(result.result_id);")
-        res = db.engine.execute(stmt)
-        response = []
-        for row in res:
-            response.append({"name":row[0], "score":row[1]})
-        return response
-
-    @staticmethod
     def list_by_score(team_id):
-        stmt = text("SELECT account.username, COUNT(result_id) "
+        stmt = text("SELECT account.username, COUNT(result.result_id) "
                     "FROM account, team "
                     "LEFT JOIN result ON account.account_id = result.account_id "
                     "WHERE account.team_id = :teamid "
                     "GROUP BY account.account_id "
-                    "ORDER BY COUNT(result_id);").params(teamid=team_id)
+                    "ORDER BY COUNT(result.result_id);").params(teamid=team_id)
         res = db.engine.execute(stmt)
         response = []
         for row in res:
