@@ -40,10 +40,6 @@ class User(db.Model):
     def is_active(self):
         return True
 
-    @staticmethod
-    def has_team(self):
-        return False
-
     def is_anonymous(self):
         return False
 
