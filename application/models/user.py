@@ -53,7 +53,7 @@ class User(db.Model):
         return True
 
     def has_team(self):
-        return self.team_id > 0
+        return self.team_id is not None
 
     def is_anonymous(self):
         return False
