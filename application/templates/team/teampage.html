@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<h2>{{ team.name }}</h2>
+<table>
+  <tr>
+    <th>Members</th>
+    <th>Points</th>
+  </tr>
+  {% for account in users %}
+  <tr>
+    <td>{{ account.name }}</td>
+    <td>{{ account.score }}</td>
+  </tr>
+  {% endfor %}
+</table>
+{% endblock %}

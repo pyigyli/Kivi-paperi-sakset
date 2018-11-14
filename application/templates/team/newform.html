@@ -3,7 +3,10 @@
 {% block body %}
 <h3>Name your team:</h3>
 <form method="POST" action="{{ url_for('team_create') }}">
-  <input type="text" name="name"/>
+  {{ form.name }}
   <input type="submit" value="Create a new team"/>
+  {% for error in form.name.errors %}
+  <div>{{ error }}</div>
+  {% endfor %}
 </form>
 {% endblock %}

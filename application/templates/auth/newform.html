@@ -14,7 +14,7 @@
         <td>
             <ul>
                 {% for error in form.username.errors %}
-                <li>{{ error }}</li>
+                <div>{{ error }}</div>
                 {% endfor %}
             </ul>
         </td>
@@ -29,7 +29,7 @@
         <td>
             <ul>
                 {% for error in form.password.errors %}
-                <li>{{ error }}</li>
+                <div>{{ error }}</div>
                 {% endfor %}
             </ul>
         </td>
