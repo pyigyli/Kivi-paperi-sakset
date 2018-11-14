@@ -8,3 +8,4 @@
 | 8.11.2018  | - Projektiin luotu useita html- ja python-tiedostoja, joita tullaan myöhemmin laajentamaan.<br> - Projektin kansiorakennetta parannettu.<br> - Sivujen ulkonäköä parannettu css-koodin avulla.<br> - SQL-tietokannan kaikki tarvittavat taulut luotu. |
 | 9.11.2018  | - Käyttäjän luominen, sisäänkirjautuminen ja uloskirjautuminen toteutettu. |
 | 10.11.2018 | - Kirjautunut käyttäjä voi nyt luoda tiimejä.<br> - Luotujen tiimien nimet ja pisteet listataan nähtäväksi "Teams"-sivulla. |
+| 14.11.2018 | - Lomakkeiden validointeja parannettu.<br> - Tiimien listaustoimintoja lisätty. |
