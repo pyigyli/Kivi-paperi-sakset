@@ -19,9 +19,9 @@ class User(db.Model):
     @staticmethod
     def list_by_score(team_id):
         stmt = text("SELECT account.username, COUNT(result.result_id) "
-                    "FROM account, team "
+                    "FROM account "
                     "LEFT JOIN result ON account.account_id = result.account_id "
-                    "WHERE account.team_id = :teamid "
+                    "LEFT JOIN team ON account.team_id = :teamid "
                     "GROUP BY account.account_id "
                     "ORDER BY COUNT(result.result_id);").params(teamid=team_id)
         res = db.engine.execute(stmt)
