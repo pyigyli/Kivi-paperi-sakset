@@ -41,10 +41,7 @@ class User(db.Model):
         return True
 
     def has_team(self):
-        if self.team_id < 0:
-            return True
-        else:
-            return False
+        return False
 
     def is_anonymous(self):
         return False
