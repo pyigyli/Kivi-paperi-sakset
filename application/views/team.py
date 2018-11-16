@@ -30,6 +30,15 @@ def team_create():
     db.session().commit()
     return redirect(url_for("team_page", teamid = user.team_id))
 
+@app.route("/team/join/<teamid>/")
+@login_required
+def team_join(teamid):
+    user = User.query.get(current_user.get_id())
+    team = Team.query.get(teamid)
+    user.team_id = team.get_id()
+    db.session().commit()
+    return redirect(url_for("team_page", teamid = user.team_id))
+
 @app.route("/team/<teamid>/")
 @login_required
 def team_page(teamid):
