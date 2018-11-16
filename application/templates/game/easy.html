@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<h2>Easy Bot is up for the challenge</h2>
+<form method="POST" action="{{ url_for('easy_check') }}">
+{{ form.choice }}
+<input type="submit" value="Confirm"/>
+</form>
+{% endblock %}

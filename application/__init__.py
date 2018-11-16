@@ -32,3 +32,13 @@ try:
     db.create_all()
 except:
     pass
+
+from application.models.bot import Bot
+if Bot.query.filter_by(name="Easy").first() == None:
+    easy_bot = Bot("Easy")
+    db.session.add(easy_bot)
+    db.session().commit()
+if Bot.query.filter_by(name="Hard").first() == None:
+    hard_bot = Bot("Hard")
+    db.session.add(hard_bot)
+    db.session().commit()

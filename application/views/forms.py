@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import PasswordField, StringField, validators, ValidationError
+from wtforms import PasswordField, StringField, validators, ValidationError, SelectField
 from application.models.user import User
 from application.models.team import Team
 
@@ -26,5 +26,10 @@ class LoginForm(FlaskForm):
 
 class CreateTeamForm(FlaskForm):
     name = StringField("name", [validators.Length(min=3), validators.Length(max=144), check_unique_teamname])
+    class Meta:
+        csrf = False
+
+class EasyBotForm(FlaskForm):
+    choice = SelectField("Pick one", choices=[('Rock', 'Rock'), ('Paper', 'Paper'), ('Scissors', 'Scissors')])
     class Meta:
         csrf = False
