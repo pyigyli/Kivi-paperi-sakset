@@ -1,5 +1,5 @@
 # Tietokantakaavio
-![alt text](http://yuml.me/fe53f2b7.png "Tietokantakaavio")
+![alt text](http://yuml.me/edit/6fbf695d.png "Tietokantakaavio")
 
 ### Linkki kaavion editoimiseen:
-http://yuml.me/edit/fe53f2b7
+http://yuml.me/edit/6fbf695d
