@@ -39,7 +39,26 @@ def team_join(teamid):
     db.session().commit()
     return redirect(url_for("team_page", teamid = user.team_id))
 
+@app.route("/team/quit/<teamid>/")
+@login_required
+def team_quit(teamid):
+    user = User.query.get(current_user.get_id())
+    user.team_id = None
+    db.session().commit()
+    return redirect(url_for("team_index"))
+
+@app.route("/team/delete/<teamid>/")
+@login_required
+def team_delete(teamid):
+    team = Team.query.get(teamid)
+    db.session.delete(team)
+    users = User.query.filter_by(team_id=teamid)
+    for u in users:
+        u.team_id = None
+    db.session().commit()
+    return redirect(url_for("team_index"))
+
 @app.route("/team/<teamid>/")
 @login_required
 def team_page(teamid):
-    return render_template("team/teampage.html", team = Team.query.get(teamid), users = User.list_by_score(team_id=teamid))
+    return render_template("team/teampage.html", team = Team.query.get(teamid), users = User.list_by_score(team_id=teamid), user = User.query.get(current_user.get_id()))
