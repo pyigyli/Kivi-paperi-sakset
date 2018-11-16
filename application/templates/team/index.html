@@ -17,7 +17,7 @@
     <td>{{ team.score }}</td>
     {% if current_user.is_authenticated %}
     {% if not current_user.team_id %}
-    <td><a href="{{ url_for('team_join', teamid=team_id) }}">Join</a></td>
+    <td><a href="{{ url_for('team_join', teamid=team.id) }}">Join</a></td>
     {% endif %}
     {% endif %}
   </tr>
