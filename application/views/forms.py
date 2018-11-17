@@ -29,7 +29,7 @@ class CreateTeamForm(FlaskForm):
     class Meta:
         csrf = False
 
-class EasyBotForm(FlaskForm):
+class GameplayForm(FlaskForm):
     choice = SelectField("Pick one", choices=[('Rock', 'Rock'), ('Paper', 'Paper'), ('Scissors', 'Scissors')])
     class Meta:
         csrf = False

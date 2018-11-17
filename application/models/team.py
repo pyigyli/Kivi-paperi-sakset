@@ -16,8 +16,9 @@ class Team(db.Model):
                     "FROM team "
                     "LEFT JOIN account ON team.team_id = account.team_id "
                     "LEFT JOIN result ON account.account_id = result.account_id "
+                    "AND result.winner = 2 "
                     "GROUP BY team.team_id "
-                    "ORDER BY COUNT(result.result_id);")
+                    "ORDER BY COUNT(result.result_id) DESC;")
         res = db.engine.execute(stmt)
         response = []
         for row in res:
