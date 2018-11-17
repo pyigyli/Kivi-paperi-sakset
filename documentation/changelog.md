@@ -9,3 +9,5 @@
 | 9.11.2018  | - Käyttäjän luominen, sisäänkirjautuminen ja uloskirjautuminen toteutettu. |
 | 10.11.2018 | - Kirjautunut käyttäjä voi nyt luoda tiimejä.<br> - Luotujen tiimien nimet ja pisteet listataan nähtäväksi "Teams"-sivulla. |
 | 14.11.2018 | - Lomakkeiden validointeja parannettu.<br> - Tiimien listaustoimintoja parannettu. |
+| 16.11.2018 | - Helpon vaikeustason botin html-sivut toteutettu.<br> - Tiimiin liittyminen, tiimin poistaminen ja tiimistä poistuminen toteutettu. |
+| 17.11.2018 | - Botit ja pelilogiikka täysin toteutettu.<br> - Tiimien ja tiimien jäsenten pistelistaukset korjattu toimiviksi.<br> - Pelitulosten tallentaminen tietokantaan toteutettu. |
