@@ -1,5 +1,6 @@
 from application import db
 from sqlalchemy.sql import text
+from application.models.user import User
 
 class Comment(db.Model):
     comment_id = db.Column(db.Integer, primary_key=True)
@@ -16,14 +17,14 @@ class Comment(db.Model):
 
     @staticmethod
     def list_team_comments(team_id):
-        stmt = text("SELECT account.username, comment.text"
-                    " FROM account, comment, team"
-                    " WHERE comment.account_id = account.account_id"
-                    " AND account.team_id = :teamid"
-                    " GROUP BY comment.comment_id"
-                    " ORDER BY comment.datetime DESC;").params(teamid=team_id)
+        stmt = text("SELECT comment.account_id, comment.text "
+                    "FROM account, comment, team "
+                    "WHERE comment.account_id = account.account_id "
+                    "AND account.team_id = :teamid "
+                    "GROUP BY comment.comment_id "
+                    "ORDER BY comment.datetime DESC;").params(teamid=team_id)
         res = db.engine.execute(stmt)
         response = []
         for row in res:
-            response.append({"user":row[0], "text":row[1]})
+            response.append({"user":User.query.get(row[0]).username, "text":row[1]})
         return response
