@@ -16,12 +16,12 @@ class Comment(db.Model):
 
     @staticmethod
     def list_team_comments(team_id):
-        stmt = text("SELECT account.username, comment.text "
-                    "FROM account, comment, team "
-                    "WHERE comment.account_id = account.account_id "
-                    "AND account.team_id = :teamid "
-                    "GROUP BY comment.comment_id "
-                    "ORDER BY comment.datetime DESC;").params(teamid=team_id)
+        stmt = text("SELECT account.username, comment.text"
+                    " FROM account, comment, team"
+                    " WHERE comment.account_id = account.account_id"
+                    " AND account.team_id = :teamid"
+                    " GROUP BY comment.comment_id"
+                    " ORDER BY comment.datetime DESC;").params(teamid=team_id)
         res = db.engine.execute(stmt)
         response = []
         for row in res:
