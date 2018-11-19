@@ -1,7 +1,13 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<p>Choose your opponent</p>
+<h4>Choose your opponent</h4>
 <span><a href="{{ url_for('game_easy') }}">Easy Bot</a></span>
 <span><a href="{{ url_for('game_hard') }}">Hard Bot</a></span>
+
+<style>
+    span {
+        padding-right: 20px;
+    }
+</style>
 {% endblock %}

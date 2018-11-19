@@ -12,6 +12,9 @@ class User(db.Model):
     password = db.Column(db.String(144), nullable=False)
     team_id = db.Column(db.Integer, nullable=True) # Not a Foreign Key because Foreign Key can't be null.
 
+    results = db.relationship('Result', backref='account', lazy=True)
+    comments = db.relationship('Comment', backref='account', lazy=True)
+
     def __init__(self, username, password):
         self.username = username
         self.password = password

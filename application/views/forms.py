@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import PasswordField, StringField, validators, ValidationError, SelectField
+from wtforms import PasswordField, StringField, validators, ValidationError, SelectField, TextAreaField
 from application.models.user import User
 from application.models.team import Team
 
@@ -24,12 +24,17 @@ class LoginForm(FlaskForm):
     class Meta:
         csrf = False
 
-class CreateTeamForm(FlaskForm):
-    name = StringField("name", [validators.Length(min=3), validators.Length(max=144), check_unique_teamname])
+class GameplayForm(FlaskForm):
+    choice = SelectField("Pick one", choices=[('Rock', 'Rock'), ('Paper', 'Paper'), ('Scissors', 'Scissors')])
     class Meta:
         csrf = False
 
-class GameplayForm(FlaskForm):
-    choice = SelectField("Pick one", choices=[('Rock', 'Rock'), ('Paper', 'Paper'), ('Scissors', 'Scissors')])
+class CreateTeamForm(FlaskForm):
+    name = StringField("name", [validators.Length(min=3), validators.Length(max=32), check_unique_teamname])
+    class Meta:
+        csrf = False
+
+class CreateCommentForm(FlaskForm):
+    text = TextAreaField("text", [validators.Length(min=1), validators.Length(max=500)])
     class Meta:
         csrf = False

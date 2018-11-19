@@ -3,7 +3,8 @@ from flask import render_template, request, redirect, url_for
 from flask_login import current_user, login_required
 from application.models.user import User
 from application.models.team import Team
-from application.views.forms import CreateTeamForm
+from application.models.comment import Comment
+from application.views.forms import CreateTeamForm, CreateCommentForm
 
 @app.route("/team/index/")
 def team_index():
@@ -61,4 +62,20 @@ def team_delete(teamid):
 @app.route("/team/<teamid>/")
 @login_required
 def team_page(teamid):
-    return render_template("team/teampage.html", team = Team.query.get(teamid), users = User.list_by_score(team_id=teamid), user = User.query.get(current_user.get_id()))
+    return render_template("team/teampage.html", team = Team.query.get(teamid), users = User.list_by_score(team_id=teamid),
+                                    form = CreateCommentForm(request.form), comments = Comment.list_team_comments(teamid),
+                                    user = User.query.get(current_user.get_id()))
+
+@app.route("/team/<teamid>/comment", methods=["POST"])
+@login_required
+def team_send_comment(teamid):
+    form = CreateCommentForm(request.form)
+    text = form.text.data
+    comment = Comment(teamid, current_user.get_id(), text)
+    db.session().add(comment)
+    db.session().commit()
+    if not form.validate():
+        return render_template("team/teampage.html", team = Team.query.get(teamid), users = User.list_by_score(team_id=teamid),
+                                                    form = form, comments = Comment.list_team_comments(teamid),
+                                                    user = User.query.get(current_user.get_id()))
+    return redirect(url_for("team_page", teamid = User.query.get(current_user.get_id()).team_id))

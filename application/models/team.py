@@ -5,6 +5,7 @@ class Team(db.Model):
     team_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(32), nullable=False, unique=True)
     creator = db.Column(db.Integer, nullable=False, unique=True)
+    comments = db.relationship('Comment', backref='team', lazy=True)
 
     def __init__(self, name, creator):
         self.name = name

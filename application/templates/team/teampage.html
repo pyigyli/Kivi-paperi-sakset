@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 
 {% block body %}
+
 <h2>{{ team.name }}</h2>
 <table>
   <tr>
@@ -9,14 +10,64 @@
   </tr>
   {% for account in users %}
   <tr>
-    <td>{{ account.name }}</td>
-    <td>{{ account.score }}</td>
+    <th>{{ account.name }}</th>
+    <th>{{ account.score }}</th>
   </tr>
   {% endfor %}
 </table>
+
+<h3>Team chat</h3>
+<h5>Write comment</h5>
+<form method="POST" action="{{ url_for('team_send_comment', teamid=user.team_id) }}">
+  {{ form.text }}
+  <div>
+    <input type="submit" value="Send"/>
+    {% for error in form.text.errors %}
+    <span>{{ error }}</span>
+    {% endfor %}
+  </div>
+</form>
+{% for comment in comments %}
+<div class="comment">
+  <p class="comment_user">{{ comment.user }}</p>
+  <span class="comment_text">{{ comment.text }}</span>
+</div>
+{% endfor %}
+
 {% if (user.account_id == team.creator) %}
 <p><a href="{{ url_for('team_delete', teamid=user.team_id) }}">Delete team</a></p>
 {% else %}
 <p><a href="{{ url_for('team_quit', teamid=user.team_id) }}">Quit team</a></p>
 {% endif %}
+
+<style>
+  th {
+    padding: 10px;
+    background-color: #464646;
+  }
+  table {
+    padding-bottom: 40px;
+  }
+  form textarea#text {
+    width: 680px;
+    height: 150px;
+  }
+  .comment {
+    width: 680px;
+    padding: 10px;
+    padding-top: 0px;
+    margin-top: 20px;
+    background-color: #464646;
+  }
+  .comment_user {
+    float: middle;
+    padding: 5px;
+  }
+  .comment_text {
+    font-size: 18px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+</style>
+
 {% endblock %}

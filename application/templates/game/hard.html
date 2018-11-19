@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block body %}
-<h2>Hard Bot is up for the challenge</h2>
+<h3>Hard Bot is up for the challenge</h3>
 <form method="POST" action="{{ url_for('game_hardcheck') }}">
 {{ form.choice }}
 <input type="submit" value="Confirm"/>
