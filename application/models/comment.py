@@ -20,7 +20,7 @@ class Comment(db.Model):
         stmt = text("SELECT comment.account_id, comment.text "
                     "FROM account, comment, team "
                     "WHERE comment.account_id = account.account_id "
-                    "AND account.team_id = :teamid "
+                    "AND comment.team_id = :teamid "
                     "GROUP BY comment.comment_id "
                     "ORDER BY comment.datetime DESC;").params(teamid=team_id)
         res = db.engine.execute(stmt)
