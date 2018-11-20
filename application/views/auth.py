@@ -44,7 +44,6 @@ def auth_logout():
 @login_required
 def auth_delete():
     user = User.query.get(current_user.get_id())
-    logout_user()
     team = Team.query.filter_by(creator=user.account_id).first()
     if team is not None:
         comments = Comment.query.filter_by(team_id=team.team_id)
@@ -61,6 +60,7 @@ def auth_delete():
         comments = Comment.query.filter_by(account_id=user.account_id)
         for c in comments:
             db.session.delete(c)
+    logout_user()
     db.session().delete(user)
     db.session.commit()
     return redirect(url_for("index"))
