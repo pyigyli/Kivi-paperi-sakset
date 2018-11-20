@@ -1,5 +1,5 @@
 from flask import render_template, request, redirect, url_for
-from flask_login import login_user, logout_user, login_required
+from flask_login import login_user, logout_user, login_required, current_user
 from application import app, db
 from application.models.user import User
 from application.views.forms import CreateUserForm, LoginForm
@@ -35,4 +35,13 @@ def auth_login():
 @login_required
 def auth_logout():
     logout_user()
+    return redirect(url_for("index"))
+
+@app.route("/auth/delete")
+@login_required
+def auth_delete():
+    user = User.query.get(current_user.get_id())
+    logout_user()
+    db.session().delete(user)
+    db.session.commit()
     return redirect(url_for("index"))

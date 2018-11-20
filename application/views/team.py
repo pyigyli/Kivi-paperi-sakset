@@ -52,10 +52,13 @@ def team_quit(teamid):
 @login_required
 def team_delete(teamid):
     team = Team.query.get(teamid)
-    db.session.delete(team)
+    comments = Comment.query.filter_by(team_id=teamid)
+    for c in comments:
+        db.session.delete(c)
     users = User.query.filter_by(team_id=teamid)
     for u in users:
         u.team_id = None
+    db.session.delete(team)
     db.session().commit()
     return redirect(url_for("team_index"))
 
