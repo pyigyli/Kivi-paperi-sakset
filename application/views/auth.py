@@ -47,9 +47,6 @@ def auth_delete():
     team = Team.query.filter_by(creator=user.account_id).first()
     if team is not None:
         comments = Comment.query.filter_by(team_id=team.team_id)
-        results = Result.query.filter_by(account_id=user.account_id)
-        for r in results:
-            db.session.delete(r)
         for c in comments:
             db.session.delete(c)
         users = User.query.filter_by(team_id=team.team_id)
@@ -60,6 +57,9 @@ def auth_delete():
         comments = Comment.query.filter_by(account_id=user.account_id)
         for c in comments:
             db.session.delete(c)
+    results = Result.query.filter_by(account_id=user.account_id)
+    for r in results:
+        db.session.delete(r)
     logout_user()
     db.session().delete(user)
     db.session.commit()
