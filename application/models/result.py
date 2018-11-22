@@ -44,3 +44,65 @@ class Result(db.Model):
         for row in res:
             response.append({"team":row[0], "wins":row[1]})
         return response
+
+    @staticmethod
+    def scoreboard_list_top_user_draws():
+        stmt = text("SELECT account.username, COUNT(result.result_id) "
+                    "FROM account "
+                    "LEFT JOIN result ON account.account_id = result.account_id "
+                    "AND result.winner = 1 "
+                    "GROUP BY account.account_id "
+                    "ORDER BY COUNT(result.result_id) DESC "
+                    "LIMIT 10;")
+        res = db.engine.execute(stmt)
+        response = []
+        for row in res:
+            response.append({"account":row[0], "draws":row[1]})
+        return response
+
+    @staticmethod
+    def scoreboard_list_top_team_draws():
+        stmt = text("SELECT team.name, COUNT(result.result_id) "
+                    "FROM team "
+                    "LEFT JOIN account ON team.team_id = account.team_id "
+                    "LEFT JOIN result ON account.account_id = result.account_id "
+                    "AND result.winner = 1 "
+                    "GROUP BY team.team_id "
+                    "ORDER BY COUNT(result.result_id) DESC "
+                    "LIMIT 10;")
+        res = db.engine.execute(stmt)
+        response = []
+        for row in res:
+            response.append({"team":row[0], "draws":row[1]})
+        return response
+
+    @staticmethod
+    def scoreboard_list_top_user_losses():
+        stmt = text("SELECT account.username, COUNT(result.result_id) "
+                    "FROM account "
+                    "LEFT JOIN result ON account.account_id = result.account_id "
+                    "AND result.winner = 0 "
+                    "GROUP BY account.account_id "
+                    "ORDER BY COUNT(result.result_id) DESC "
+                    "LIMIT 10;")
+        res = db.engine.execute(stmt)
+        response = []
+        for row in res:
+            response.append({"account":row[0], "losses":row[1]})
+        return response
+
+    @staticmethod
+    def scoreboard_list_top_team_losses():
+        stmt = text("SELECT team.name, COUNT(result.result_id) "
+                    "FROM team "
+                    "LEFT JOIN account ON team.team_id = account.team_id "
+                    "LEFT JOIN result ON account.account_id = result.account_id "
+                    "AND result.winner = 0 "
+                    "GROUP BY team.team_id "
+                    "ORDER BY COUNT(result.result_id) DESC "
+                    "LIMIT 10;")
+        res = db.engine.execute(stmt)
+        response = []
+        for row in res:
+            response.append({"team":row[0], "losses":row[1]})
+        return response

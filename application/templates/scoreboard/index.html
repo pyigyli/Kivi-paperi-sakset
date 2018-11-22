@@ -21,7 +21,7 @@
         {% for score in userscores %}
         <tr>
             <th>{{ score.account }}</th>
-            <th>{{ score.wins }}</th>
+            <th>{{ score.draws }}</th>
         </tr>
         {% endfor %}
     </table>
@@ -32,7 +32,7 @@
         {% for score in userscores %}
         <tr>
             <th>{{ score.account }}</th>
-            <th>{{ score.wins }}</th>
+            <th>{{ score.losses }}</th>
         </tr>
         {% endfor %}
     </table>
@@ -55,7 +55,7 @@
         {% for score in teamscores %}
         <tr>
             <th>{{ score.team }}</th>
-            <th>{{ score.wins }}</th>
+            <th>{{ score.draws }}</th>
         </tr>
         {% endfor %}
     </table>
@@ -66,7 +66,7 @@
         {% for score in teamscores %}
         <tr>
             <th>{{ score.team }}</th>
-            <th>{{ score.wins }}</th>
+            <th>{{ score.losses }}</th>
         </tr>
         {% endfor %}
     </table>

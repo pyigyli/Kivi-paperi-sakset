@@ -13,3 +13,4 @@
 | 17.11.2018 | - Botit ja pelilogiikka täysin toteutettu.<br> - Tiimien ja tiimien jäsenten pistelistaukset korjattu toimiviksi.<br> - Pelitulosten tallentaminen tietokantaan toteutettu. |
 | 19.11.2018 | - Tiimien chatit toteutettu.<br> - Sivujen ulkoasua parannettu. |
 | 20.11.2018 | - Käyttäjätilin poistaminen mahdollista.<br> - Tiimin poistaminen tuhoaa myös tiimin sisäiset kommentit tietokannasta.<br> - Tiimin perustaneen käyttäjätilin poistaminen poistaa tiimin. |
+| 22.11.2018 | - Pistelistaukset toteutettu. |
