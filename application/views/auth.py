@@ -50,7 +50,7 @@ def auth_delete_account():
 @login_required
 def auth_delete():
     user = User.query.get(current_user.get_id())
-    team = Team.query.filter_by(creator=user.account_id).count()
+    team = Team.query.filter_by(creator=user.account_id)
     if team.count() == 0:
         comments = Comment.query.filter_by(account_id=user.account_id)
         for c in comments:
