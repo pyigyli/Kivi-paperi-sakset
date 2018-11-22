@@ -50,19 +50,19 @@ def auth_delete_account():
 @login_required
 def auth_delete():
     user = User.query.get(current_user.get_id())
-    team = Team.query.filter_by(creator=user.account_id)
-    if team.count() == 0:
+    team = Team.query.filter_by(creator=user.account_id).first()
+    if team:
         comments = Comment.query.filter_by(account_id=user.account_id)
         for c in comments:
             db.session.delete(c)
     else:
-        comments = Comment.query.filter_by(team_id=team.first().team_id)
+        comments = Comment.query.filter_by(team_id=team.team_id)
         for c in comments:
             db.session.delete(c)
-        users = User.query.filter_by(team_id=team.first().team_id)
+        users = User.query.filter_by(team_id=team.team_id)
         for u in users:
             u.team_id = None
-        db.session.delete(team.first())
+        db.session.delete(team)
     results = Result.query.filter_by(account_id=user.account_id)
     for r in results:
         db.session.delete(r)
