@@ -1,4 +1,5 @@
 from application import db
+from sqlalchemy.sql import text
 
 class Result(db.Model):
     result_id = db.Column(db.Integer, primary_key=True)
@@ -14,17 +15,32 @@ class Result(db.Model):
         self.winner = winner
 
     @staticmethod
-    def count_easy_wins(team_id):
+    def scoreboard_list_top_user_wins():
         stmt = text("SELECT account.username, COUNT(result.result_id) "
                     "FROM account "
                     "LEFT JOIN result ON account.account_id = result.account_id "
                     "AND result.winner = 2 "
-                    "LEFT JOIN team ON account.team_id = team.team_id "
-                    "WHERE account.team_id = :teamid "
                     "GROUP BY account.account_id "
-                    "ORDER BY COUNT(result.result_id) DESC;").params(teamid=team_id)
+                    "ORDER BY COUNT(result.result_id) DESC "
+                    "LIMIT 10;")
         res = db.engine.execute(stmt)
         response = []
         for row in res:
-            response.append({"name":row[0], "score":row[1]})
+            response.append({"account":row[0], "wins":row[1]})
+        return response
+
+    @staticmethod
+    def scoreboard_list_top_team_wins():
+        stmt = text("SELECT team.name, COUNT(result.result_id) "
+                    "FROM team "
+                    "LEFT JOIN account ON team.team_id = account.team_id "
+                    "LEFT JOIN result ON account.account_id = result.account_id "
+                    "AND result.winner = 2 "
+                    "GROUP BY team.team_id "
+                    "ORDER BY COUNT(result.result_id) DESC "
+                    "LIMIT 10;")
+        res = db.engine.execute(stmt)
+        response = []
+        for row in res:
+            response.append({"team":row[0], "wins":row[1]})
         return response

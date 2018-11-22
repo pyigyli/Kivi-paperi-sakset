@@ -2,4 +2,94 @@
 
 {% block body %}
 <p>Scoreboards</p>
+<h2>Users</h2>
+
+<div>
+    <h3>Most wins</h3>
+    <table>
+        {% for score in userscores %}
+        <tr>
+            <th>{{ score.account }}</th>
+            <th>{{ score.wins }}</th>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<div>
+    <h3>Most draws</h3>
+    <table>
+        {% for score in userscores %}
+        <tr>
+            <th>{{ score.account }}</th>
+            <th>{{ score.wins }}</th>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<div class="new_row">
+    <h3>Most losses</h3>
+    <table>
+        {% for score in userscores %}
+        <tr>
+            <th>{{ score.account }}</th>
+            <th>{{ score.wins }}</th>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<div>
+    <h3>Most victorious team</h3>
+    <table>
+        {% for score in teamscores %}
+        <tr>
+            <th>{{ score.team }}</th>
+            <th>{{ score.wins }}</th>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<div>
+    <h3>Most draws</h3>
+    <table>
+        {% for score in teamscores %}
+        <tr>
+            <th>{{ score.team }}</th>
+            <th>{{ score.wins }}</th>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<div class="new_row">
+    <h3>Most losses</h3>
+    <table>
+        {% for score in teamscores %}
+        <tr>
+            <th>{{ score.team }}</th>
+            <th>{{ score.wins }}</th>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<style>
+    div {
+        padding-right: 30px;
+        float: left;
+    }
+    .new_row {
+        padding-top: 0.1px;
+        float: none;
+    }
+    table {
+        padding-bottom: 30px;
+    }
+    th {
+        padding: 10px;
+        background-color: #464646;
+    }
+    td {
+        padding: 10px;
+    }
+</style>
 {% endblock %}

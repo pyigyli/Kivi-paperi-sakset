@@ -35,6 +35,24 @@ class User(db.Model):
             response.append({"name":row[0], "score":row[1]})
         return response
 
+    @staticmethod
+    def qualifies_to_scoreboard():
+        stmt = text("SELECT account.username "
+                    "FROM account, result "
+                    "WHERE "
+                    "(account.account_id = result.account_id "
+                    "AND result.winner = 2) "
+                    "AND "
+                    "(account.account_id = result.account_id "
+                    "AND result.winner = 0) "
+                    "GROUP BY account.account_id "
+                    "ORDER BY account.account_id;")
+        res = db.engine.execute(stmt)
+        response = []
+        for row in res:
+            response.append({"account":row[0]})
+        return response
+
     def get_id(self):
         return self.account_id
 
