@@ -3,6 +3,7 @@ from flask_login import login_user, logout_user, login_required, current_user
 from application import app, db
 from application.models.user import User
 from application.models.team import Team
+from application.models.bot import Bot
 from application.models.comment import Comment
 from application.models.result import Result
 from application.views.forms import CreateUserForm, LoginForm
@@ -40,6 +41,11 @@ def auth_logout():
     logout_user()
     return redirect(url_for("index"))
 
+@app.route("/account/delete_account/")
+@login_required
+def auth_delete_account():
+    return render_template("auth/delete.html")
+
 @app.route("/auth/delete")
 @login_required
 def auth_delete():
@@ -64,3 +70,29 @@ def auth_delete():
     db.session().delete(user)
     db.session.commit()
     return redirect(url_for("index"))
+
+@app.route("/account/profile/")
+@login_required
+def auth_profile():
+    results = Result.query.filter_by(account_id=current_user.get_id())
+    wins_easy = 0
+    draws_easy = 0
+    loses_easy = 0
+    wins_hard = 0
+    draws_hard = 0
+    loses_hard = 0
+    for r in results:
+        if r.bot_id == Bot.query.filter_by(name="Easy").first().bot_id and r.winner == 2:
+            wins_easy += 1
+        if r.bot_id == Bot.query.filter_by(name="Easy").first().bot_id and r.winner == 1:
+            draws_easy += 1
+        if r.bot_id == Bot.query.filter_by(name="Easy").first().bot_id and r.winner == 0:
+            loses_easy += 1
+        if r.bot_id == Bot.query.filter_by(name="Hard").first().bot_id and r.winner == 2:
+            wins_hard += 1
+        if r.bot_id == Bot.query.filter_by(name="Hard").first().bot_id and r.winner == 1:
+            draws_hard += 1
+        if r.bot_id == Bot.query.filter_by(name="Hard").first().bot_id and r.winner == 0:
+            loses_hard += 1
+    return render_template("auth/profile.html", easy_wins = wins_easy, easy_draws = draws_easy, easy_loses = loses_easy,
+                                                hard_wins = wins_hard, hard_draws = draws_hard, hard_loses = loses_hard)

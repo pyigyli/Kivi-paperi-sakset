@@ -12,7 +12,7 @@ else:
 db = SQLAlchemy(app)
 
 from application.models import bot, comment, result, team, user
-from application.views import auth, forms, game, index, result, team, user
+from application.views import auth, forms, game, index, result, team
 from application.models.user import User
 
 from os import urandom

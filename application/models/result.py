@@ -12,3 +12,19 @@ class Result(db.Model):
         self.account_id = account_id
         self.bot_id = bot_id
         self.winner = winner
+
+    @staticmethod
+    def count_easy_wins(team_id):
+        stmt = text("SELECT account.username, COUNT(result.result_id) "
+                    "FROM account "
+                    "LEFT JOIN result ON account.account_id = result.account_id "
+                    "AND result.winner = 2 "
+                    "LEFT JOIN team ON account.team_id = team.team_id "
+                    "WHERE account.team_id = :teamid "
+                    "GROUP BY account.account_id "
+                    "ORDER BY COUNT(result.result_id) DESC;").params(teamid=team_id)
+        res = db.engine.execute(stmt)
+        response = []
+        for row in res:
+            response.append({"name":row[0], "score":row[1]})
+        return response

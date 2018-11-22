@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<h2>{{ current_user.username }}</h2>
+<h3>Your game statistics</h3>
+
+<table>
+    <tr>
+        <th>Wins</th>
+        <th>Draws</th>
+        <th>Loses</th>
+        <th>Total</th>
+    </tr>
+    <tr>
+        <th>{{ easy_wins + hard_wins }}</th>
+        <th>{{ easy_draws + hard_draws }}</th>
+        <th>{{ easy_loses + hard_loses }}</th>
+        <th>{{ easy_wins + easy_draws + easy_loses + hard_wins + hard_draws + hard_loses }}</th>
+        <td>All games</td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <th>Wins</th>
+        <th>Draws</th>
+        <th>Loses</th>
+        <th>Total</th>
+    </tr>
+    <tr>
+        <th>{{ easy_wins }}</th>
+        <th>{{ easy_draws }}</th>
+        <th>{{ easy_loses }}</th>
+        <th>{{ easy_wins + easy_draws + easy_loses }}</th>
+        <td>Easy bot</td>
+    </tr>
+</table>
+<table>
+    <tr>
+        <th>Wins</th>
+        <th>Draws</th>
+        <th>Loses</th>
+        <th>Total</th>
+    </tr>
+    <tr>
+        <th>{{ hard_wins }}</th>
+        <th>{{ hard_draws }}</th>
+        <th>{{ hard_loses }}</th>
+        <th>{{ hard_wins + hard_draws + hard_loses }}</th>
+        <td>Hard bot</td>
+    </tr>
+</table>
+
+<p><a href="{{ url_for('auth_delete_account') }}">Delete account</a></p>
+
+<style>
+    table {
+        padding-bottom: 30px;
+    }
+    th {
+        padding: 10px;
+        background-color: #464646;
+    }
+    td {
+        padding: 10px;
+    }
+</style>
+{% endblock %}
