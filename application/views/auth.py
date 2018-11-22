@@ -56,13 +56,13 @@ def auth_delete():
         for c in comments:
             db.session.delete(c)
     else:
-        comments = Comment.query.filter_by(team_id=team.team_id)
+        comments = Comment.query.filter_by(team_id=team.first().team_id)
         for c in comments:
             db.session.delete(c)
-        users = User.query.filter_by(team_id=team.team_id)
+        users = User.query.filter_by(team_id=team.first().team_id)
         for u in users:
             u.team_id = None
-        db.session.delete(team)
+        db.session.delete(team.first())
     results = Result.query.filter_by(account_id=user.account_id)
     for r in results:
         db.session.delete(r)
