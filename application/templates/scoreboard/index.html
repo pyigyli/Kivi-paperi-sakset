@@ -7,7 +7,7 @@
 <div>
     <h3>Most wins</h3>
     <table>
-        {% for score in userscores %}
+        {% for score in userwins %}
         <tr>
             <th>{{ score.account }}</th>
             <th>{{ score.wins }}</th>
@@ -18,7 +18,7 @@
 <div>
     <h3>Most draws</h3>
     <table>
-        {% for score in userscores %}
+        {% for score in userdraws %}
         <tr>
             <th>{{ score.account }}</th>
             <th>{{ score.draws }}</th>
@@ -29,7 +29,7 @@
 <div class="new_row">
     <h3>Most losses</h3>
     <table>
-        {% for score in userscores %}
+        {% for score in userlosses %}
         <tr>
             <th>{{ score.account }}</th>
             <th>{{ score.losses }}</th>
@@ -41,7 +41,7 @@
 <div>
     <h3>Most victorious team</h3>
     <table>
-        {% for score in teamscores %}
+        {% for score in teamwins %}
         <tr>
             <th>{{ score.team }}</th>
             <th>{{ score.wins }}</th>
@@ -52,7 +52,7 @@
 <div>
     <h3>Most draws</h3>
     <table>
-        {% for score in teamscores %}
+        {% for score in teamdraws %}
         <tr>
             <th>{{ score.team }}</th>
             <th>{{ score.draws }}</th>
@@ -63,7 +63,7 @@
 <div class="new_row">
     <h3>Most losses</h3>
     <table>
-        {% for score in teamscores %}
+        {% for score in teamlosses %}
         <tr>
             <th>{{ score.team }}</th>
             <th>{{ score.losses }}</th>
