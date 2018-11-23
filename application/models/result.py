@@ -48,12 +48,14 @@ class Result(db.Model):
     @staticmethod
     def scoreboard_list_top_user_winpercents():
         stmt = text("SELECT account.username, "
-                    "SUM(CASE WHEN result.winner = 2 THEN 1 ELSE 0 END) AS wins, "
-                    "SUM(CASE WHEN result.winner = 0 THEN 1 ELSE 0 END) AS losses "
+                    "SUM(CASE WHEN result.winner = 2 THEN 1 ELSE 0 END), "
+                    "SUM(CASE WHEN result.winner = 0 THEN 1 ELSE 0 END) "
                     "FROM account, result "
                     "WHERE account.account_id = result.account_id "
                     "GROUP BY account.account_id "
-                    "ORDER BY (wins / (wins + losses)) DESC "
+                    "ORDER BY (SUM(CASE WHEN result.winner = 2 THEN 1 ELSE 0 END) "
+                    "/ (SUM(CASE WHEN result.winner = 2 THEN 1 ELSE 0 END) "
+                    "+ SUM(CASE WHEN result.winner = 0 THEN 1 ELSE 0 END))) DESC "
                     "LIMIT 10;")
         res = db.engine.execute(stmt)
         response = []
