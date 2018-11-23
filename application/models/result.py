@@ -52,14 +52,12 @@ class Result(db.Model):
                     "SUM(CASE WHEN result.winner = 0 THEN 1 ELSE 0 END) AS losses "
                     "FROM account, result "
                     "WHERE account.account_id = result.account_id "
-                    "GROUP BY account.account_id "
-                    "ORDER BY wins / (wins + losses) * 100 ASC "
-                    "LIMIT 10;")
+                    "GROUP BY account.account_id;")
         res = db.engine.execute(stmt)
         response = []
         for row in res:
             percent = "%.2f" % (row[1] / (row[1] + row[2]) * int(100))
-            response.append({"account":row[0], "percent":percent + "%"})
+            response.append({"account":row[0], "percent":percent})
         return response
 
     @staticmethod
@@ -70,15 +68,13 @@ class Result(db.Model):
                     "FROM team, account, result "
                     "WHERE team.team_id = account.team_id "
                     "AND account.account_id = result.account_id "
-                    "GROUP BY team.team_id "
-                    "ORDER BY wins / (wins + losses) * 100 ASC "
-                    "LIMIT 10;")
+                    "GROUP BY team.team_id;")
         res = db.engine.execute(stmt)
         response = []
         for row in res:
             percent = "%.2f" % (row[1] / (row[1] + row[2]) * int(100))
-            response.append({"team":row[0], "percent":percent + "%"})
-        return response
+            response.append({"team":row[0], "percent":percent})
+        return sorted(response, cmp=reverse_numeric)[:10]
 
     @staticmethod
     def scoreboard_list_top_user_total_games():
@@ -92,7 +88,7 @@ class Result(db.Model):
         response = []
         for row in res:
             response.append({"account":row[0], "games":row[1]})
-        return response
+        return sorted(response, cmp=reverse_numeric)[:10]
 
     @staticmethod
     def scoreboard_list_top_team_total_games():
