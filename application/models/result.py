@@ -58,7 +58,7 @@ class Result(db.Model):
                     "SUM(CASE WHEN result.winner = 0 THEN 1 ELSE 0 END))), "
                     "(SUM(CASE WHEN result.winner = 2 THEN 1 ELSE 0 END) "
                     "/ (SUM(CASE WHEN result.winner = 2 THEN 1 ELSE 0 END) + "
-                    "SUM(CASE WHEN result.winner = 0 THEN 1 ELSE 0 END))) DESC"
+                    "SUM(CASE WHEN result.winner = 0 THEN 1 ELSE 0 END))) DESC "
                     "LIMIT 10;")
         res = db.engine.execute(stmt)
         response = []
