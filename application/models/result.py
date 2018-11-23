@@ -1,5 +1,6 @@
 from application import db
 from sqlalchemy.sql import text
+from operator import itemgetter
 
 class Result(db.Model):
     result_id = db.Column(db.Integer, primary_key=True)
@@ -58,7 +59,7 @@ class Result(db.Model):
         for row in res:
             percent = "%.2f" % (row[1] / (row[1] + row[2]) * int(100))
             response.append({"account":row[0], "percent":percent})
-        return response
+        return sorted(response, key=itemgetter('percent'))
 
     @staticmethod
     def scoreboard_list_top_team_winpercents():
@@ -74,7 +75,7 @@ class Result(db.Model):
         for row in res:
             percent = "%.2f" % (row[1] / (row[1] + row[2]) * int(100))
             response.append({"team":row[0], "percent":percent})
-        return response
+        return sorted(response, key=itemgetter('percent'))
 
     @staticmethod
     def scoreboard_list_top_user_total_games():
