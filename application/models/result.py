@@ -53,12 +53,12 @@ class Result(db.Model):
                     "FROM account, result "
                     "WHERE account.account_id = result.account_id "
                     "GROUP BY account.account_id "
-                    "ORDER BY length(SUM(CASE WHEN result.winner = 2 THEN 1 ELSE 0 END) "
+                    "ORDER BY (SUM(CASE WHEN result.winner = 2 THEN 1 ELSE 0 END) "
                     "/ (SUM(CASE WHEN result.winner = 2 THEN 1 ELSE 0 END) + "
                     "SUM(CASE WHEN result.winner = 0 THEN 1 ELSE 0 END))), "
                     "(SUM(CASE WHEN result.winner = 2 THEN 1 ELSE 0 END) "
                     "/ (SUM(CASE WHEN result.winner = 2 THEN 1 ELSE 0 END) + "
-                    "SUM(CASE WHEN result.winner = 0 THEN 1 ELSE 0 END))) DESC "
+                    "SUM(CASE WHEN result.winner = 0 THEN 1 ELSE 0 END))) + 0 DESC "
                     "LIMIT 10;")
         res = db.engine.execute(stmt)
         response = []
@@ -78,7 +78,7 @@ class Result(db.Model):
                     "GROUP BY team.team_id "
                     "ORDER BY (SUM(CASE WHEN result.winner = 2 THEN 1 ELSE 0 END) "
                     "/ (SUM(CASE WHEN result.winner = 2 THEN 1 ELSE 0 END) "
-                    "+ SUM(CASE WHEN result.winner = 0 THEN 1 ELSE 0 END))) DESC "
+                    "+ SUM(CASE WHEN result.winner = 0 THEN 1 ELSE 0 END))) + 0 DESC "
                     "LIMIT 10;")
         res = db.engine.execute(stmt)
         response = []
