@@ -55,14 +55,14 @@ class Result(db.Model):
                     "GROUP BY account.account_id "
                     "ORDER BY (SUM(CASE WHEN result.winner = 2 THEN 1 ELSE 0 END) "
                     "/ (SUM(CASE WHEN result.winner = 2 THEN 1 ELSE 0 END) "
-                    "+ SUM(CASE WHEN result.winner = 0 THEN 1 ELSE 0 END))) ASC "
+                    "+ SUM(CASE WHEN result.winner = 0 THEN 1 ELSE 0 END))) * 1 ASC "
                     "LIMIT 10;")
         res = db.engine.execute(stmt)
         response = []
         for row in res:
             percent = "%.2f" % (row[1] / (row[1] + row[2]) * int(100))
             response.append({"account":row[0], "percent":percent + "%"})
-        return response[::-1]
+        return response
 
     @staticmethod
     def scoreboard_list_top_team_winpercents():
@@ -75,7 +75,7 @@ class Result(db.Model):
                     "GROUP BY team.team_id "
                     "ORDER BY (SUM(CASE WHEN result.winner = 2 THEN 1 ELSE 0 END) "
                     "/ (SUM(CASE WHEN result.winner = 2 THEN 1 ELSE 0 END) "
-                    "+ SUM(CASE WHEN result.winner = 0 THEN 1 ELSE 0 END))) ASC "
+                    "+ SUM(CASE WHEN result.winner = 0 THEN 1 ELSE 0 END))) * 1 ASC "
                     "LIMIT 10;")
         res = db.engine.execute(stmt)
         response = []
