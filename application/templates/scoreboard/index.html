@@ -5,6 +5,17 @@
 <h3>Users</h3>
 
 <div>
+    <h3>Best winpercent</h3>
+    <table>
+        {% for score in userpercents %}
+        <tr>
+            <th>{{ score.account }}</th>
+            <th>{{ score.percent }}</th>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<div>
     <h3>Most wins</h3>
     <table>
         {% for score in userwins %}
@@ -15,24 +26,13 @@
         {% endfor %}
     </table>
 </div>
-<div>
-    <h3>Most draws</h3>
-    <table>
-        {% for score in userdraws %}
-        <tr>
-            <th>{{ score.account }}</th>
-            <th>{{ score.draws }}</th>
-        </tr>
-        {% endfor %}
-    </table>
-</div>
 <div class="new_row">
-    <h3>Most losses</h3>
+    <h3>Most games</h3>
     <table>
-        {% for score in userlosses %}
+        {% for score in usertotals %}
         <tr>
             <th>{{ score.account }}</th>
-            <th>{{ score.losses }}</th>
+            <th>{{ score.games }}</th>
         </tr>
         {% endfor %}
     </table>
@@ -40,6 +40,17 @@
 
 
 <h3>Teams</h3>
+<div>
+    <h3>Best winpercent</h3>
+    <table>
+        {% for score in teampercents %}
+        <tr>
+            <th>{{ score.team }}</th>
+            <th>{{ score.percent }}</th>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
 <div>
     <h3>Most wins</h3>
     <table>
@@ -51,24 +62,13 @@
         {% endfor %}
     </table>
 </div>
-<div>
-    <h3>Most draws</h3>
-    <table>
-        {% for score in teamdraws %}
-        <tr>
-            <th>{{ score.team }}</th>
-            <th>{{ score.draws }}</th>
-        </tr>
-        {% endfor %}
-    </table>
-</div>
 <div class="new_row">
-    <h3>Most losses</h3>
+    <h3>Most games</h3>
     <table>
-        {% for score in teamlosses %}
+        {% for score in teamtotals %}
         <tr>
             <th>{{ score.team }}</th>
-            <th>{{ score.losses }}</th>
+            <th>{{ score.games }}</th>
         </tr>
         {% endfor %}
     </table>

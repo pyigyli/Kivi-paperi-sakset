@@ -46,63 +46,65 @@ class Result(db.Model):
         return response
 
     @staticmethod
-    def scoreboard_list_top_user_draws():
+    def scoreboard_list_top_user_winpercents():
+        stmt = text("SELECT account.username, "
+                    "SUM(CASE WHEN result.winner = 2 THEN 1 ELSE 0 END) wins, "
+                    "SUM(CASE WHEN result.winner = 0 THEN 1 ELSE 0 END) losses "
+                    "FROM account, result "
+                    "WHERE account.account_id = result.account_id "
+                    "GROUP BY account.account_id "
+                    "ORDER BY (wins / (wins + losses)) DESC "
+                    "LIMIT 10;")
+        res = db.engine.execute(stmt)
+        response = []
+        for row in res:
+            percent = "%.2f" % (row[1] / (row[1] + row[2]) * int(100))
+            response.append({"account":row[0], "percent":percent + "%"})
+        return response
+
+    @staticmethod
+    def scoreboard_list_top_team_winpercents():
+        stmt = text("SELECT team.name, "
+                    "SUM(CASE WHEN result.winner = 2 THEN 1 ELSE 0 END) wins, "
+                    "SUM(CASE WHEN result.winner = 0 THEN 1 ELSE 0 END) losses "
+                    "FROM team, account, result "
+                    "WHERE team.team_id = account.team_id "
+                    "AND account.account_id = result.account_id "
+                    "GROUP BY account.account_id "
+                    "ORDER BY (wins / (wins + losses)) DESC "
+                    "LIMIT 10;")
+        res = db.engine.execute(stmt)
+        response = []
+        for row in res:
+            percent = "%.2f" % (row[1] / (row[1] + row[2]) * int(100))
+            response.append({"team":row[0], "percent":percent + "%"})
+        return response
+
+    @staticmethod
+    def scoreboard_list_top_user_total_games():
         stmt = text("SELECT account.username, COUNT(result.result_id) "
                     "FROM account "
                     "LEFT JOIN result ON account.account_id = result.account_id "
-                    "AND result.winner = 1 "
                     "GROUP BY account.account_id "
                     "ORDER BY COUNT(result.result_id) DESC "
                     "LIMIT 10;")
         res = db.engine.execute(stmt)
         response = []
         for row in res:
-            response.append({"account":row[0], "draws":row[1]})
+            response.append({"account":row[0], "games":row[1]})
         return response
 
     @staticmethod
-    def scoreboard_list_top_team_draws():
+    def scoreboard_list_top_team_total_games():
         stmt = text("SELECT team.name, COUNT(result.result_id) "
                     "FROM team "
                     "LEFT JOIN account ON team.team_id = account.team_id "
                     "LEFT JOIN result ON account.account_id = result.account_id "
-                    "AND result.winner = 1 "
                     "GROUP BY team.team_id "
                     "ORDER BY COUNT(result.result_id) DESC "
                     "LIMIT 10;")
         res = db.engine.execute(stmt)
         response = []
         for row in res:
-            response.append({"team":row[0], "draws":row[1]})
-        return response
-
-    @staticmethod
-    def scoreboard_list_top_user_losses():
-        stmt = text("SELECT account.username, COUNT(result.result_id) "
-                    "FROM account "
-                    "LEFT JOIN result ON account.account_id = result.account_id "
-                    "AND result.winner = 0 "
-                    "GROUP BY account.account_id "
-                    "ORDER BY COUNT(result.result_id) DESC "
-                    "LIMIT 10;")
-        res = db.engine.execute(stmt)
-        response = []
-        for row in res:
-            response.append({"account":row[0], "losses":row[1]})
-        return response
-
-    @staticmethod
-    def scoreboard_list_top_team_losses():
-        stmt = text("SELECT team.name, COUNT(result.result_id) "
-                    "FROM team "
-                    "LEFT JOIN account ON team.team_id = account.team_id "
-                    "LEFT JOIN result ON account.account_id = result.account_id "
-                    "AND result.winner = 0 "
-                    "GROUP BY team.team_id "
-                    "ORDER BY COUNT(result.result_id) DESC "
-                    "LIMIT 10;")
-        res = db.engine.execute(stmt)
-        response = []
-        for row in res:
-            response.append({"team":row[0], "losses":row[1]})
+            response.append({"team":row[0], "games":row[1]})
         return response

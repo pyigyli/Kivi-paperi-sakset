@@ -18,5 +18,5 @@ def scoreboard_index():
             losscount += 1
         results.append({"username":name, "percent":(wincount / losscount)})
     return render_template("scoreboard/index.html", userwins = Result.scoreboard_list_top_user_wins(), teamwins = Result.scoreboard_list_top_team_wins(),
-                                                    userdraws = Result.scoreboard_list_top_user_draws(), teamdraws = Result.scoreboard_list_top_team_draws(),
-                                                    userlosses = Result.scoreboard_list_top_user_losses(), teamlosses = Result.scoreboard_list_top_team_losses())
+                                userpercents = Result.scoreboard_list_top_user_winpercents(), teampercents = Result.scoreboard_list_top_team_winpercents(),
+                                usertotals = Result.scoreboard_list_top_user_total_games(), teamtotals = Result.scoreboard_list_top_team_total_games())
