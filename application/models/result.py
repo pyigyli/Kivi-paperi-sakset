@@ -57,7 +57,7 @@ class Result(db.Model):
         response = []
         for row in res:
             percent = "%.2f" % (row[1] / (row[1] + row[2]) * int(100))
-            response.append({"account":row[0], "percent":int(percent)})
+            response.append({"account":row[0], "percent":float(percent)})
         response.sort()
         return sorted(response, key=lambda x: x[1])
 
@@ -74,7 +74,7 @@ class Result(db.Model):
         response = []
         for row in res:
             percent = "%.2f" % (row[1] / (row[1] + row[2]) * int(100))
-            response.append({"team":row[0], "percent":int(percent)})
+            response.append({"team":row[0], "percent":float(percent)})
         return sorted(response, key=lambda x: x[1])
 
     @staticmethod
