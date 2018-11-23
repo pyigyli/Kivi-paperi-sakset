@@ -59,10 +59,13 @@ class Result(db.Model):
                     "LIMIT 10;")
         res = db.engine.execute(stmt)
         response = []
-        for row in reversed(res):
+        for row in res:
             percent = "%.2f" % (row[1] / (row[1] + row[2]) * int(100))
             response.append({"account":row[0], "percent":percent + "%"})
-        return response
+        reversed_list = []
+        for row in reversed(response):
+            reversed_list.append({"account":row[0], "percent":row[1]})
+        return reversed_list
 
     @staticmethod
     def scoreboard_list_top_team_winpercents():
@@ -79,10 +82,13 @@ class Result(db.Model):
                     "LIMIT 10;")
         res = db.engine.execute(stmt)
         response = []
-        for row in reversed(res):
+        for row in res:
             percent = "%.2f" % (row[1] / (row[1] + row[2]) * int(100))
             response.append({"team":row[0], "percent":percent + "%"})
-        return response
+        reversed_list = []
+        for row in reversed(response):
+            reversed_list.append({"account":row[0], "percent":row[1]})
+        return reversed_list
 
     @staticmethod
     def scoreboard_list_top_user_total_games():
