@@ -60,7 +60,7 @@ class Result(db.Model):
         res = db.engine.execute(stmt)
         response = []
         for row in res:
-            percent = "%.2f" % (row[1] / (row[1] + row[2]))
+            percent = "%.2f" % (row[1] / (row[1] + row[2]) * int(100))
             response.append({"account":row[0], "percent":percent + "%"})
         return response
 
@@ -80,7 +80,7 @@ class Result(db.Model):
         res = db.engine.execute(stmt)
         response = []
         for row in res:
-            percent = "%.2f" % (row[1] / (row[1] + row[2]))
+            percent = "%.2f" % (row[1] / (row[1] + row[2]) * int(100))
             response.append({"team":row[0], "percent":percent + "%"})
         return response
 
