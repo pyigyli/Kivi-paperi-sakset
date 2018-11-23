@@ -53,7 +53,10 @@ class Result(db.Model):
                     "FROM account, result "
                     "WHERE account.account_id = result.account_id "
                     "GROUP BY account.account_id "
-                    "ORDER BY (SUM(CASE WHEN result.winner = 2 THEN 1 ELSE 0 END) + 0 "
+                    "ORDER BY len((SUM(CASE WHEN result.winner = 2 THEN 1 ELSE 0 END) + 0 "
+                    "/ (SUM(CASE WHEN result.winner = 2 THEN 1 ELSE 0 END) + 0 "
+                    "+ SUM(CASE WHEN result.winner = 0 THEN 1 ELSE 0 END)) + 0) * 100) DESC, "
+                    "(SUM(CASE WHEN result.winner = 2 THEN 1 ELSE 0 END) + 0 "
                     "/ (SUM(CASE WHEN result.winner = 2 THEN 1 ELSE 0 END) + 0 "
                     "+ SUM(CASE WHEN result.winner = 0 THEN 1 ELSE 0 END)) + 0) * 100 DESC "
                     "LIMIT 10;")
