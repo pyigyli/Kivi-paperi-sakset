@@ -15,7 +15,7 @@ Kivi-paperi-sakset on tietokantasovellus, jossa käyttäjät voivat haastaa tiet
 - Kirjautuneena käyttäjänä voin nähdä omat pelitilastoni ja vaihtaa salasanani.
 
 ### Projektin tapahtumaloki
-[Muutosloki](https://github.com/pyigyli/kivi-paperi-sakset/blob/master/documentation/changelog.md)
+[Tapahtumaloki](https://github.com/pyigyli/kivi-paperi-sakset/blob/master/documentation/changelog.md)
 
 ### Tietokantakaavio sovelluksesta
 [Tietokantakaavio](https://github.com/pyigyli/kivi-paperi-sakset/blob/master/documentation/tietokantakaavio.md)
