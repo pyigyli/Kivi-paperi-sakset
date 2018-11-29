@@ -24,11 +24,10 @@ def team_create():
     user = User.query.get(current_user.get_id())
     team = Team(form.name.data, user.account_id)
     db.session().add(team)
-    db.session().commit()
-    creator_id = user.account_id
-    team = Team.query.filter_by(creator=creator_id).first()
+    db.session().commit()                                           # Create team with creators id as creator_id
+    team = Team.query.filter_by(creator=user.account_id).first()
     user.team_id = team.get_id()
-    db.session().commit()
+    db.session().commit()                                           # Link creators team_id to this new team
     return redirect(url_for("team_page", teamid = user.team_id))
 
 @app.route("/team/join/<teamid>/")
@@ -37,7 +36,7 @@ def team_join(teamid):
     user = User.query.get(current_user.get_id())
     team = Team.query.get(teamid)
     user.team_id = team.get_id()
-    db.session().commit()
+    db.session().commit()                                           # Link users team_id to the team they are joining to
     return redirect(url_for("team_page", teamid = user.team_id))
 
 @app.route("/team/quit/<teamid>/")
@@ -45,7 +44,7 @@ def team_join(teamid):
 def team_quit(teamid):
     user = User.query.get(current_user.get_id())
     user.team_id = None
-    db.session().commit()
+    db.session().commit()                                           # Set user's team_id to none removing the connection between user and team
     return redirect(url_for("team_index"))
 
 @app.route("/team/delete/<teamid>/")
@@ -54,11 +53,11 @@ def team_delete(teamid):
     team = Team.query.get(teamid)
     comments = Comment.query.filter_by(team_id=teamid)
     for c in comments:
-        db.session.delete(c)
+        db.session.delete(c)                                        # Delete all the comments from team
     users = User.query.filter_by(team_id=teamid)
     for u in users:
-        u.team_id = None
-    db.session.delete(team)
+        u.team_id = None                                            # Set team_id of everyone in team to none
+    db.session.delete(team)                                         # Delete team
     db.session().commit()
     return redirect(url_for("team_index"))
 

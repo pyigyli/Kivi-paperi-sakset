@@ -20,19 +20,19 @@ def game_easy():
 def game_easycheck():
     form = GameplayForm(request.form)
     user_choice = form.choice.data
-    bot_choice = "Paper"
+    bot_choice = "Paper"                            # Easy bot chooses always paper
     if user_choice == "Rock":
-        result = Result(current_user.get_id(), Bot.query.filter_by(name="Easy").first().bot_id, 0)
+        result = Result(current_user.get_id(), Bot.query.filter_by(name="Easy").first().bot_id, 0)  # Set 0 for loss
         db.session.add(result)
         db.session.commit()
         return render_template("game/lose.html", user_choice = user_choice, bot_choice = "Paper")
     if user_choice == "Paper":
-        result = Result(current_user.get_id(), Bot.query.filter_by(name="Easy").first().bot_id, 1)
+        result = Result(current_user.get_id(), Bot.query.filter_by(name="Easy").first().bot_id, 1)  # Set 1 for draw
         db.session.add(result)
         db.session.commit()
         return render_template("game/draw.html", user_choice = user_choice, bot_choice = "Paper")
     if user_choice == "Scissors":
-        result = Result(current_user.get_id(), Bot.query.filter_by(name="Easy").first().bot_id, 2)
+        result = Result(current_user.get_id(), Bot.query.filter_by(name="Easy").first().bot_id, 2)  # Set 2 for win
         db.session.add(result)
         db.session.commit()
         return render_template("game/win.html", user_choice = user_choice, bot_choice = "Paper")
@@ -48,20 +48,26 @@ def game_hardcheck():
     form = GameplayForm(request.form)
     user_choice = form.choice.data
     bot_choices = ["Rock", "Paper", "Scissors"]
-    bot_choice = bot_choices[randint(0, 2)]
-    print(bot_choice)
-    if (user_choice == "Rock" and bot_choice == "Paper") or (user_choice == "Paper" and bot_choice == "Scissors") or (user_choice == "Scissors" and bot_choice == "Rock"):
-        result = Result(current_user.get_id(), Bot.query.filter_by(name="Hard").first().bot_id, 0)
+    bot_choice = bot_choices[randint(0, 2)]         # Hard bot randomizes its choice
+    # Choose if player lost
+    if (user_choice == "Rock" and bot_choice == "Paper")\
+    or (user_choice == "Paper" and bot_choice == "Scissors")\
+    or (user_choice == "Scissors" and bot_choice == "Rock"):
+        result = Result(current_user.get_id(), Bot.query.filter_by(name="Hard").first().bot_id, 0)  # Set 0 for loss
         db.session.add(result)
         db.session.commit()
         return render_template("game/lose.html", user_choice = user_choice, bot_choice = bot_choice)
-    if (user_choice == "Rock" and bot_choice == "Rock") or (user_choice == "Paper" and bot_choice == "Paper") or (user_choice == "Scissors" and bot_choice == "Scissors"):
-        result = Result(current_user.get_id(), Bot.query.filter_by(name="Hard").first().bot_id, 1)
+    # Choose if game was a draw
+    elif (user_choice == "Rock" and bot_choice == "Rock")\
+    or (user_choice == "Paper" and bot_choice == "Paper")\
+    or (user_choice == "Scissors" and bot_choice == "Scissors"):
+        result = Result(current_user.get_id(), Bot.query.filter_by(name="Hard").first().bot_id, 1)  # Set 1 for draw
         db.session.add(result)
         db.session.commit()
         return render_template("game/draw.html", user_choice = user_choice, bot_choice = bot_choice)
-    if (user_choice == "Rock" and bot_choice == "Scissors") or (user_choice == "Paper" and bot_choice == "Rock") or (user_choice == "Scissors" and bot_choice == "Paper"):
-        result = Result(current_user.get_id(), Bot.query.filter_by(name="Hard").first().bot_id, 2)
+    # Choose if player won
+    else:
+        result = Result(current_user.get_id(), Bot.query.filter_by(name="Hard").first().bot_id, 2)  # Set 2 for win
         db.session.add(result)
         db.session.commit()
         return render_template("game/win.html", user_choice = user_choice, bot_choice = bot_choice)

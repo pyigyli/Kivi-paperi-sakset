@@ -11,9 +11,7 @@ else:
     app.config["SQLALCHEMY_ECHO"] = True
 db = SQLAlchemy(app)
 
-from application.models import bot, comment, result, team, user
-from application.views import auth, forms, game, index, result, team
-from application.models.user import User
+from application.views import auth, forms, game, index, scoreboard, team
 
 from os import urandom
 app.config["SECRET_KEY"] = urandom(32)
@@ -24,6 +22,7 @@ login_manager.init_app(app)
 login_manager.login_view = "auth_login"
 login_manager.login_message = "Please login to use this functionality."
 
+from application.models.user import User
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(user_id)
@@ -34,7 +33,7 @@ except:
     pass
 
 from application.models.bot import Bot
-if Bot.query.filter_by(name="Easy").first() == None:
+if Bot.query.filter_by(name="Easy").first() == None:    # If database doesn't contain information of the bots, set them up
     easy_bot = Bot("Easy")
     db.session.add(easy_bot)
     db.session().commit()

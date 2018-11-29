@@ -2,7 +2,7 @@
 
 {% block body %}
 
-<h2>{{ team.name }}</h2>
+<h2>{{ team.name|e }}</h2>
 <table>
   <tr>
     <th>Members</th>
@@ -10,7 +10,7 @@
   </tr>
   {% for account in users %}
   <tr>
-    <th>{{ account.name }}</th>
+    <th>{{ account.name|e }}</th>
     <th>{{ account.score }}</th>
   </tr>
   {% endfor %}
@@ -29,8 +29,8 @@
 </form>
 {% for comment in comments %}
 <div class="comment">
-  <p class="comment_user">{{ comment.user }}</p>
-  <span class="comment_text">{{ comment.text }}</span>
+  <p class="comment_user">{{ comment.user|e }}</p>
+  <span class="comment_text">{{ comment.text|e }}</span>
 </div>
 {% endfor %}
 

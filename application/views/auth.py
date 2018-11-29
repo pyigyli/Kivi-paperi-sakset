@@ -31,7 +31,7 @@ def auth_login():
     form = LoginForm(request.form)
     user = User.query.filter_by(username=form.username.data, password=form.password.data).first()
     if not user:
-        return render_template("auth/loginform.html", form = form, error = "No such username or password")
+        return render_template("auth/loginform.html", form = form, error = "No such username or wrong password")
     login_user(user)
     return redirect(url_for("index"))
 
@@ -51,18 +51,18 @@ def auth_delete_account():
 def auth_delete():
     user = User.query.get(current_user.get_id())
     team = Team.query.filter_by(creator=user.account_id).first()
-    if team:
+    if team:                                                                # If user is a creator of an existing team
         comments = Comment.query.filter_by(team_id=team.team_id)
         for c in comments:
-            db.session.delete(c)
+            db.session.delete(c)                                            # Delete every comment in this team
         users = User.query.filter_by(team_id=team.team_id)
         for u in users:
-            u.team_id = None
+            u.team_id = None                                                # Remove every user from the team
         db.session.delete(team)
     else:
         comments = Comment.query.filter_by(account_id=user.account_id)
         for c in comments:
-            db.session.delete(c)
+            db.session.delete(c)                                            # Else delete every comment made by user
     results = Result.query.filter_by(account_id=user.account_id)
     for r in results:
         db.session.delete(r)
@@ -74,8 +74,8 @@ def auth_delete():
 @app.route("/account/profile/")
 @login_required
 def auth_profile():
-    results = Result.query.filter_by(account_id=current_user.get_id())
-    wins_easy = 0
+    results = Result.query.filter_by(account_id=current_user.get_id())      # Check every game result from user
+    wins_easy = 0                                                           # and count players statistics against each bot
     draws_easy = 0
     loses_easy = 0
     wins_hard = 0
@@ -84,15 +84,15 @@ def auth_profile():
     for r in results:
         if r.bot_id == Bot.query.filter_by(name="Easy").first().bot_id and r.winner == 2:
             wins_easy += 1
-        if r.bot_id == Bot.query.filter_by(name="Easy").first().bot_id and r.winner == 1:
+        elif r.bot_id == Bot.query.filter_by(name="Easy").first().bot_id and r.winner == 1:
             draws_easy += 1
-        if r.bot_id == Bot.query.filter_by(name="Easy").first().bot_id and r.winner == 0:
+        elif r.bot_id == Bot.query.filter_by(name="Easy").first().bot_id and r.winner == 0:
             loses_easy += 1
-        if r.bot_id == Bot.query.filter_by(name="Hard").first().bot_id and r.winner == 2:
+        elif r.bot_id == Bot.query.filter_by(name="Hard").first().bot_id and r.winner == 2:
             wins_hard += 1
-        if r.bot_id == Bot.query.filter_by(name="Hard").first().bot_id and r.winner == 1:
+        elif r.bot_id == Bot.query.filter_by(name="Hard").first().bot_id and r.winner == 1:
             draws_hard += 1
-        if r.bot_id == Bot.query.filter_by(name="Hard").first().bot_id and r.winner == 0:
+        elif r.bot_id == Bot.query.filter_by(name="Hard").first().bot_id and r.winner == 0:
             loses_hard += 1
     return render_template("auth/profile.html", easy_wins = wins_easy, easy_draws = draws_easy, easy_loses = loses_easy,
                                                 hard_wins = wins_hard, hard_draws = draws_hard, hard_loses = loses_hard)

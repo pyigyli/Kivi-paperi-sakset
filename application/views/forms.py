@@ -12,14 +12,14 @@ def check_unique_teamname(form, field):
             raise ValidationError('Name already taken')
 
 class CreateUserForm(FlaskForm):
-    username = StringField("Username", [validators.Length(min=3), validators.Length(max=144), check_unique_username])
-    password = PasswordField("Password", [validators.Length(min=5), validators.Length(max=144)])
+    username = StringField("Username", [validators.Length(min=3), validators.Length(max=32), check_unique_username])
+    password = PasswordField("Password", [validators.Length(min=5), validators.Length(max=32)])
     class Meta:
         csrf = False
 
 class LoginForm(FlaskForm):
-    username = StringField("Username", [validators.Length(min=3), validators.Length(max=144)])
-    password = PasswordField("Password", [validators.Length(min=5), validators.Length(max=144)])
+    username = StringField("Username", [validators.Length(min=3), validators.Length(max=32)])
+    password = PasswordField("Password", [validators.Length(min=5), validators.Length(max=32)])
     class Meta:
         csrf = False
 

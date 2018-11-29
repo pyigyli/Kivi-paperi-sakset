@@ -22,7 +22,8 @@ class Comment(db.Model):
                     "WHERE comment.account_id = account.account_id "
                     "AND comment.team_id = :teamid "
                     "GROUP BY comment.comment_id "
-                    "ORDER BY comment.datetime DESC;").params(teamid=team_id)
+                    "ORDER BY comment.datetime DESC "
+                    "LIMIT 12;").params(teamid=team_id)
         res = db.engine.execute(stmt)
         response = []
         for row in res:

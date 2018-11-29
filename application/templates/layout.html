@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <title>Rock Paper Scissors</title>
 
-    <!-- Gunicorn doesn't seem to allow linking .css files, thus styles are embedded inside this html-file -->
     <style>
       body {
         font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -48,7 +47,7 @@
     <ul class="navigation_topbar">
       {% if current_user.is_authenticated %}
       <li class="navigation_login"><a class="navigation_link" href="{{ url_for('auth_logout') }}">Logout</a>
-        <span class="navigation_login_text">Logged in as {{ current_user.username }}</span>
+        <span class="navigation_login_text">Logged in as {{ current_user.username|e }}</span>
       </li>
       {% else %}
       <li class="navigation_login"><a class="navigation_link" href="{{ url_for('auth_login') }}">Login</a>
@@ -63,7 +62,6 @@
     </ul>
 
     {% block body %}
-    <p>Content.</p>
     {% endblock %}
   </body>
 </html>
