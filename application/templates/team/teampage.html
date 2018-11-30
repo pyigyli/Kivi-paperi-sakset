@@ -27,18 +27,30 @@
     {% endfor %}
   </div>
 </form>
-{% for comment in comments %}
-<div class="comment">
-  <p class="comment_user">{{ comment.user|e }}</p>
-  <span class="comment_text">{{ comment.text|e }}</span>
-</div>
-{% endfor %}
 
-{% if (user.account_id == team.creator) %}
-<p><a href="{{ url_for('team_delete', teamid=user.team_id) }}">Delete team</a></p>
-{% else %}
-<p><a href="{{ url_for('team_quit', teamid=user.team_id) }}">Quit team</a></p>
-{% endif %}
+<div class="comment_section">
+  <div class="comment_navigation_area">
+    {% if (page > 1) %}
+    <p class="previous"><a href="{{ url_for_other_page(page - 1) }}">Previous page</a></p>
+    {% endif %}
+    {% if (count > page * 7) %}
+    <p class="next"><a href="{{ url_for_other_page(page + 1) }}">Next page</a></p>
+    {% endif %}
+  </div>
+
+  {% for comment in comments %}
+  <div class="comment">
+    <p class="comment_user">{{ comment.user|e }}</p>
+    <span class="comment_text">{{ comment.text|e }}</span>
+  </div>
+  {% endfor %}
+
+  {% if (user.account_id == team.creator) %}
+  <p><a href="{{ url_for('team_delete', teamid=user.team_id) }}">Delete team</a></p>
+  {% else %}
+  <p><a href="{{ url_for('team_quit', teamid=user.team_id) }}">Quit team</a></p>
+  {% endif %}
+</div>
 
 <style>
   th {
@@ -51,6 +63,18 @@
   form textarea#text {
     width: 680px;
     height: 150px;
+  }
+  .comment_section {
+    width: 680px;
+  }
+  .comment_navigation_area {
+    padding-bottom: 40px;
+  }
+  .previous {
+    float: left;
+  }
+  .next {
+    float: right;
   }
   .comment {
     width: 680px;

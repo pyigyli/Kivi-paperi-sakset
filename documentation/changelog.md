@@ -15,3 +15,5 @@
 | 20.11.2018 | - Käyttäjätilin poistaminen mahdollista.<br> - Tiimin poistaminen tuhoaa myös tiimin sisäiset kommentit tietokannasta.<br> - Tiimin perustaneen käyttäjätilin poistaminen poistaa tiimin. |
 | 22.11.2018 | - Pistelistaukset toteutettu. |
 | 23.11.2018 | - Listauksia muutettu monimutkaisemmiksi. |
+| 28.11.2018 | - Koodia selkeytetty ja kommentoitu monimutkaisemmissa kohdissa. |
+| 28.11.2018 | - Tiimien sisäisten kommenttien julkaisemisen validointi korjattu. |

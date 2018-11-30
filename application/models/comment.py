@@ -16,16 +16,29 @@ class Comment(db.Model):
         self.text = text
 
     @staticmethod
-    def list_team_comments(team_id):
+    def list_team_comments(team_id, page):
         stmt = text("SELECT comment.account_id, comment.text "
                     "FROM account, comment, team "
                     "WHERE comment.account_id = account.account_id "
                     "AND comment.team_id = :teamid "
                     "GROUP BY comment.comment_id "
                     "ORDER BY comment.datetime DESC "
-                    "LIMIT 12;").params(teamid=team_id)
+                    "LIMIT 7 OFFSET :offset;").params(teamid = team_id, offset = (page - 1) * 7)
         res = db.engine.execute(stmt)
         response = []
         for row in res:
             response.append({"user":User.query.get(row[0]).username, "text":row[1]})
+        return response
+
+
+
+    @staticmethod
+    def count_comments_of_team(team_id):
+        stmt = text("SELECT COUNT(comment.comment_id) "
+                    "FROM comment, team "
+                    "WHERE comment.team_id = team.team_id "
+                    "AND team.team_id = :teamid;").params(teamid = team_id)
+        res = db.engine.execute(stmt)
+        for row in res:
+            response = row[0]
         return response

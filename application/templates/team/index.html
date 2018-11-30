@@ -6,27 +6,53 @@
 {% else %}
 <p><a href="{{ url_for('team_new') }}">Create new team</a></p>
 {% endif %}
-<table>
-  <tr>
-    <th>Team</th>
-    <th>Points</th>
-  </tr>
-  {% for team in teams %}
-  <tr>
-    <th>{{ team.name|e }}</th>
-    <th>{{ team.score }}</th>
-    {% if current_user.is_authenticated %}
-    {% if not current_user.team_id %}
-    <td><a href="{{ url_for('team_join', teamid=team.id) }}">Join</a></td>
-    {% endif %}
-    {% endif %}
-  </tr>
-  {% endfor %}
-</table>
+
+<div class="teams_list_navigation_area">
+  {% if (page > 1) %}
+  <p class="previous"><a href="{{ url_for_other_page(page - 1) }}">Previous page</a></p>
+  {% endif %}
+  {% if (count > page * 10) %}
+  <p class="next"><a href="{{ url_for_other_page(page + 1) }}">Next page</a></p>
+  {% endif %}
+
+  <table>
+    <tr>
+      <th>Team</th>
+      <th>Points</th>
+    </tr>
+    {% for team in teams %}
+    <tr>
+      <th>{{ team.name|e }}</th>
+      <th>{{ team.score }}</th>
+      {% if current_user.is_authenticated %}
+      {% if not current_user.team_id %}
+      <td><a href="{{ url_for('team_join', teamid=team.id) }}">Join</a></td>
+      {% endif %}
+      {% endif %}
+    </tr>
+    {% endfor %}
+  </table>
+</div>
+
 
 <style>
+  .teams_list_navigation_area {
+    width: 230px;
+    padding-bottom: 50px;
+  }
+  .previous {
+    float: left;
+  }
+  .next {
+    float: right;
+  }
+  table {
+    align-self: center;
+  }
   th {
     padding: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
     background-color: #464646;
   }
   td {
