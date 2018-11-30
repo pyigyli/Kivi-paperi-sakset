@@ -16,4 +16,4 @@
 | 22.11.2018 | - Pistelistaukset toteutettu. |
 | 23.11.2018 | - Listauksia muutettu monimutkaisemmiksi. |
 | 28.11.2018 | - Koodia selkeytetty ja kommentoitu monimutkaisemmissa kohdissa. |
-| 28.11.2018 | - Tiimien sisäisten kommenttien julkaisemisen validointi korjattu. |
+| 28.11.2018 | - Tiimien sisäisten kommenttien julkaisemisen validointi korjattu.<br> - Jos kysely palauttaa liikaa rivejä, ne jaetaan nyt sivuihin. |
