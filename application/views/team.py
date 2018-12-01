@@ -22,19 +22,19 @@ def team_index(page):
 def team_new():
     return render_template("team/newform.html", form = CreateTeamForm(request.form))
 
-@app.route("/team/create", methods=["POST"])
+@app.route("/team/create/", methods=["POST"])
 @login_required
 def team_create():
-    form = CreateTeamForm(request.form)
-    if not form.validate():
-        return render_template("team/newform.html", form = form)
     user = User.query.get(current_user.get_id())
+    form = CreateTeamForm(request.form)
+    if (user.team_id != None) or (not form.validate()):
+        return render_template("team/newform.html", form = form)
     team = Team(form.name.data, user.account_id)
     db.session().add(team)
-    db.session().commit()                                           # Create team with creators id as creator_id
+    db.session().commit()                                           # Create team with creator's id as creator_id
     team = Team.query.filter_by(creator=user.account_id).first()
     user.team_id = team.get_id()
-    db.session().commit()                                           # Link creators team_id to this new team
+    db.session().commit()                                           # Link creator's team_id to this new team
     return redirect(url_for("team_page", teamid = user.team_id))
 
 @app.route("/team/join/<teamid>/")
@@ -43,7 +43,7 @@ def team_join(teamid):
     user = User.query.get(current_user.get_id())
     team = Team.query.get(teamid)
     user.team_id = team.get_id()
-    db.session().commit()                                           # Link users team_id to the team they are joining to
+    db.session().commit()                                           # Link user's team_id to the team they are joining to
     return redirect(url_for("team_page", teamid = user.team_id))
 
 @app.route("/team/quit/<teamid>/")
@@ -51,7 +51,7 @@ def team_join(teamid):
 def team_quit(teamid):
     user = User.query.get(current_user.get_id())
     user.team_id = None
-    db.session().commit()                                           # Set user's team_id to none removing the connection between user and team
+    db.session().commit()                                           # Set user's team_id to none, removing the connection between user and team
     return redirect(url_for("team_index"))
 
 @app.route("/team/delete/<teamid>/")
@@ -83,6 +83,7 @@ def team_page(teamid, page):
 @app.route("/team/<teamid>/comment", methods=["POST"])
 @login_required
 def team_send_comment(teamid):
+    count = Comment.count_comments_of_team(teamid)
     form = CreateCommentForm(request.form)
     if not form.validate():
         return render_template("team/teampage.html", team = Team.query.get(teamid), form = form,

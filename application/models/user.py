@@ -38,14 +38,8 @@ class User(db.Model):
     def get_id(self):
         return self.account_id
 
-    def get_team(self):
-        return self.team_id
-
     def is_active(self):
         return True
-
-    def is_anonymous(self):
-        return False
 
     def is_authenticated(self):
         return True

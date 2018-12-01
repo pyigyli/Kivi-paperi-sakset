@@ -58,7 +58,7 @@ def auth_delete():
         users = User.query.filter_by(team_id=team.team_id)
         for u in users:
             u.team_id = None                                                # Remove every user from the team
-        db.session.delete(team)
+        db.session.delete(team)                                             # Delete the team
     else:
         comments = Comment.query.filter_by(account_id=user.account_id)
         for c in comments:
