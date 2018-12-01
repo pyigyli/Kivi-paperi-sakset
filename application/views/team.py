@@ -46,9 +46,9 @@ def team_join(teamid):
     db.session().commit()                                           # Link user's team_id to the team they are joining to
     return redirect(url_for("team_page", teamid = user.team_id))
 
-@app.route("/team/quit/<teamid>/")
+@app.route("/team/quit/")
 @login_required
-def team_quit(teamid):
+def team_quit():
     user = User.query.get(current_user.get_id())
     user.team_id = None
     db.session().commit()                                           # Set user's team_id to none, removing the connection between user and team
@@ -58,14 +58,15 @@ def team_quit(teamid):
 @login_required
 def team_delete(teamid):
     team = Team.query.get(teamid)
-    comments = Comment.query.filter_by(team_id=teamid)
-    for c in comments:
-        db.session.delete(c)                                        # Delete all the comments from team
-    users = User.query.filter_by(team_id=teamid)
-    for u in users:
-        u.team_id = None                                            # Set team_id of everyone in team to none
-    db.session.delete(team)                                         # Delete team
-    db.session().commit()
+    if team.creator == current_user.get_id():
+        comments = Comment.query.filter_by(team_id=teamid)
+        for c in comments:
+            db.session.delete(c)                                    # Delete all the comments from team
+        users = User.query.filter_by(team_id=teamid)
+        for u in users:
+            u.team_id = None                                        # Set team_id of everyone in team to none
+        db.session.delete(team)                                     # Delete team
+        db.session().commit()
     return redirect(url_for("team_index"))
 
 @app.route("/team/<teamid>/", defaults={'page': 1})
@@ -80,7 +81,7 @@ def team_page(teamid, page):
                                     users = User.list_by_score(team_id=teamid), user = User.query.get(current_user.get_id()),
                                     comments = comments, count = count, page = page)
 
-@app.route("/team/<teamid>/comment", methods=["POST"])
+@app.route("/team/<teamid>/comment/", methods=["POST"])
 @login_required
 def team_send_comment(teamid):
     count = Comment.count_comments_of_team(teamid)

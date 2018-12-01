@@ -14,6 +14,7 @@
 | 19.11.2018 | - Tiimien chatit toteutettu.<br> - Sivujen ulkoasua parannettu. |
 | 20.11.2018 | - Käyttäjätilin poistaminen mahdollista.<br> - Tiimin poistaminen tuhoaa myös tiimin sisäiset kommentit tietokannasta.<br> - Tiimin perustaneen käyttäjätilin poistaminen poistaa tiimin. |
 | 22.11.2018 | - Pistelistaukset toteutettu. |
-| 23.11.2018 | - Listauksia muutettu monimutkaisemmiksi. |
+| 23.11.2018 | - Pistelistauksia muutettu monimutkaisemmiksi. |
 | 28.11.2018 | - Koodia selkeytetty ja kommentoitu monimutkaisemmissa kohdissa. |
-| 28.11.2018 | - Tiimien sisäisten kommenttien julkaisemisen validointi korjattu.<br> - Jos kysely palauttaa liikaa rivejä, ne jaetaan nyt sivuihin. |
+| 29.11.2018 | - Tiimien sisäisten kommenttien julkaisemisen validointi korjattu.<br> - Jos kysely palauttaa liikaa rivejä, ne jaetaan nyt sivuihin. |
+| 1.12.2018  | - Mahdollisuuksia hakkeroida tietokantaa URLin avulla estetty.<br> - Salasanan vaihtaminen mahdollista. |

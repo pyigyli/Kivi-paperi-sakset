@@ -6,7 +6,7 @@ from application.models.team import Team
 from application.models.bot import Bot
 from application.models.comment import Comment
 from application.models.result import Result
-from application.views.forms import CreateUserForm, LoginForm
+from application.views.forms import CreateUserForm, LoginForm, ChangePasswordForm
 
 @app.route("/auth/new", methods = ["GET", "POST"])
 def auth_form():
@@ -96,3 +96,19 @@ def auth_profile():
             loses_hard += 1
     return render_template("auth/profile.html", easy_wins = wins_easy, easy_draws = draws_easy, easy_loses = loses_easy,
                                                 hard_wins = wins_hard, hard_draws = draws_hard, hard_loses = loses_hard)
+
+@app.route("/auth/password/")
+@login_required
+def auth_change_password_form():
+    return render_template("auth/passwordform.html", form = ChangePasswordForm())
+
+@app.route("/auth/password/change", methods=["POST"])
+@login_required
+def auth_change_password():
+    form = ChangePasswordForm(request.form)
+    if not form.validate():
+        return render_template("auth/passwordform.html", form = form)
+    user = User.query.get(current_user.get_id())
+    user.password = form.new_password.data
+    db.session().commit()
+    return redirect(url_for("auth_profile"))
