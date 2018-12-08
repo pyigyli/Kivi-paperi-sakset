@@ -18,3 +18,4 @@
 | 28.11.2018 | - Koodia selkeytetty ja kommentoitu monimutkaisemmissa kohdissa. |
 | 29.11.2018 | - Tiimien sisäisten kommenttien julkaisemisen validointi korjattu.<br> - Jos kysely palauttaa liikaa rivejä, ne jaetaan nyt sivuihin. |
 | 1.12.2018  | - Mahdollisuuksia hakkeroida tietokantaa URLin avulla estetty.<br> - Salasanan vaihtaminen mahdollista. |
+| 8.12.2018  | - Tietokanta alustettu, jottei tietokannassa ole menneistä testeistä syntyneitä viallisia rivejä.<br> - Tietokantataulukko ja dokumentaatio ajan tasalla.|
