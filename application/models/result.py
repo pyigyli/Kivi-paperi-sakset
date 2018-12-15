@@ -58,9 +58,9 @@ class Result(db.Model):
         response = []
         for row in res:
             if (row[1] + row[2]) > 0:
-                percent = "%.2f" % (row[1] / (row[1] + row[2]) * int(100))
+                percent = "%.2f" % (row[1] / (row[1] + row[2]) * int(100))          # Winspercent is calculated here and set to display only two decimal digits
                 response.append({"account":row[0], "percent":percent})
-        return sorted(response, key=itemgetter('percent'),reverse = True)[:10]
+        return sorted(response, key=itemgetter('percent'), reverse = True)[:10]     # Return 10 greatest winpercents
 
     @staticmethod
     def scoreboard_list_top_team_winpercents():
@@ -74,9 +74,9 @@ class Result(db.Model):
         res = db.engine.execute(stmt)
         response = []
         for row in res:
-            percent = "%.2f" % (row[1] / (row[1] + row[2]) * int(100))
+            percent = "%.2f" % (row[1] / (row[1] + row[2]) * int(100))              # Winspercent is calculated here and set to display only two decimal digits
             response.append({"team":row[0], "percent":percent})
-        return sorted(response, key=itemgetter('percent'),reverse = True)[:10]
+        return sorted(response, key=itemgetter('percent'), reverse = True)[:10]     # Return 10 greatest winpercents
 
     @staticmethod
     def scoreboard_list_top_user_total_games():

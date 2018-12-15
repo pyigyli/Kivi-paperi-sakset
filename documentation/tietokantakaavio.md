@@ -1,2 +1,2 @@
 # Tietokantakaavio
-![alt text](https://yuml.me/e1fdc1ea.png "Tietokantakaavio")
+![alt text](http://yuml.me/a9662f3c.png "Tietokantakaavio")

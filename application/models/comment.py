@@ -23,7 +23,7 @@ class Comment(db.Model):
                     "AND comment.team_id = :teamid "
                     "GROUP BY comment.comment_id "
                     "ORDER BY comment.datetime DESC "
-                    "LIMIT 7 OFFSET :offset;").params(teamid = team_id, offset = (page - 1) * 7)
+                    "LIMIT 7 OFFSET :offset;").params(teamid = team_id, offset = (page - 1) * 7)    # One page can contain up to 7 comments
         res = db.engine.execute(stmt)
         response = []
         for row in res:

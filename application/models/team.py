@@ -20,7 +20,7 @@ class Team(db.Model):
                     "AND result.winner = 2 "
                     "GROUP BY team.team_id "
                     "ORDER BY COUNT(result.result_id) DESC "
-                    "LIMIT 10 OFFSET :offset;").params(offset = (page - 1) * 10)
+                    "LIMIT 10 OFFSET :offset;").params(offset = (page - 1) * 10)    # One page can contain up to 10 teams
         res = db.engine.execute(stmt)
         response = []
         for row in res:

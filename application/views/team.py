@@ -58,7 +58,7 @@ def team_quit():
 @login_required
 def team_delete(teamid):
     team = Team.query.get(teamid)
-    if team.creator == current_user.get_id():
+    if team.creator == current_user.get_id():                       # Validate that the user accessing this URL is the creator of the team
         comments = Comment.query.filter_by(team_id=teamid)
         for c in comments:
             db.session.delete(c)                                    # Delete all the comments from team
@@ -77,9 +77,13 @@ def team_page(teamid, page):
     comments = Comment.list_team_comments(teamid, page)
     if not comments and page != 1:
         abort(404)
-    return render_template("team/teampage.html", team = Team.query.get(teamid), form = CreateCommentForm(request.form),
-                                    users = User.list_by_score(team_id=teamid), user = User.query.get(current_user.get_id()),
-                                    comments = comments, count = count, page = page)
+    return render_template("team/teampage.html", team = Team.query.get(teamid),
+                                                form = CreateCommentForm(request.form),
+                                                users = User.list_by_score(team_id=teamid),
+                                                user = User.query.get(current_user.get_id()),
+                                                comments = comments,
+                                                count = count,
+                                                page = page)
 
 @app.route("/team/<teamid>/comment/", methods=["POST"])
 @login_required
@@ -87,11 +91,13 @@ def team_send_comment(teamid):
     count = Comment.count_comments_of_team(teamid)
     form = CreateCommentForm(request.form)
     if not form.validate():
-        return render_template("team/teampage.html", team = Team.query.get(teamid), form = form,
+        return render_template("team/teampage.html", team = Team.query.get(teamid),
+                                                    form = form,
                                                     users = User.list_by_score(team_id=teamid),
                                                     user = User.query.get(current_user.get_id()),
                                                     comments = Comment.list_team_comments(teamid, 1),
-                                                    count = count, page = 1)
+                                                    count = count,
+                                                    page = 1)
     text = form.text.data
     comment = Comment(teamid, current_user.get_id(), text)
     db.session().add(comment)
