@@ -1,6 +1,6 @@
 # Kivi-paperi-sakset
 ### Linkki sovellukseen:
-https://kivi-paperi-sakset.herokuapp.com/
+~~https://kivi-paperi-sakset.herokuapp.com/~~ Due to the 5 app limit on free-tier Heroku accounts, I have removed the app to give space for other projects.
 
 ### Sovelluksen kuvaus
 Kivi-paperi-sakset on tietokantasovellus, jossa käyttäjät voivat haastaa tietokonepelaajia. Kaikki otteluiden statistiikat tallennetaan ja kuka tahansa voi niitä eri pistetauluilta selata. Esimerkiksi parhaimmat voittoprosentit sekä eniten voittoja keränneet joukkueet ja pelaajat ovat nähtävillä. Sovelluksessa kuka tahansa voi liittyä joukkueeseen tai luoda omansa, koska pelaaminen on tunnetusti hauskempaa kavereiden kanssa. Joukkueen sivulla jäsenet voivat nähdä muut joukkueeseen liittyneet jäsenet ja jättää keskustelualueelle kommentteja ja vinkkejä muille ryhmäläisilleen, joita ulkopuoliset käyttäjät eivät näe. Joukkueen perustaja voi myös poistaa joukkueen, mutta hän ei voi poistua ryhmästä, ellei hän samalla poista koko ryhmää.
